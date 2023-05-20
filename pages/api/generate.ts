@@ -12,8 +12,7 @@ export type GenerateResponseData = {
 interface ExtendedNextApiRequest extends NextApiRequest {
   body: {
     imageUrl: string;
-    theme: string;
-    room: string;
+    inputFeatures: string;
   };
 }
 
@@ -67,13 +66,8 @@ export default async function handler(
   });
 
   try {
-    const { imageUrl, theme, room } = req.body;
-    const prompt =
-      room === "Gaming Room"
-        ? "a video gaming room"
-        : `a ${theme.toLowerCase()} ${room.toLowerCase()}`;
-
-    // POST request to Replicate to start the image restoration generation process
+    const { imageUrl, inputFeatures } = req.body;
+    // POST request to Replicate to start the image captionning process
     let startResponse = await fetch(
       "https://api.replicate.com/v1/predictions",
       {
@@ -84,15 +78,10 @@ export default async function handler(
         },
         body: JSON.stringify({
           version:
-            "854e8727697a057c525cdb45ab037f64ecca770a1769cc52287c2e56472a247b",
+            "2e1dddc8621f72155f24cf2e0adbde548458d3cab9f00c0139eea840d0ac4746",
           input: {
             image: imageUrl,
-            prompt: prompt,
-            scale: 9,
-            a_prompt:
-              "best quality, photo from Pinterest, interior, cinematic photo, ultra-detailed, ultra-realistic, award-winning, interior design, natural lighting",
-            n_prompt:
-              "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+            inputFeatures,
           },
         }),
       }
@@ -102,11 +91,11 @@ export default async function handler(
 
     let endpointUrl = jsonStartResponse.urls.get;
     const originalImage = jsonStartResponse.input.image;
-    const roomId = jsonStartResponse.id;
+    const descId = jsonStartResponse.id;
 
     // GET request to get the status of the image restoration process & return the result when it's ready
-    let generatedImage: string | null = null;
-    while (!generatedImage) {
+    let generatedDescription: string | null = null;
+    while (!generatedDescription) {
       // Loop in 1s intervals until the alt text is ready
       let finalResponse = await fetch(endpointUrl, {
         method: "GET",
@@ -118,7 +107,7 @@ export default async function handler(
       let jsonFinalResponse = await finalResponse.json();
 
       if (jsonFinalResponse.status === "succeeded") {
-        generatedImage = jsonFinalResponse.output[1] as string;
+        generatedDescription = jsonFinalResponse.output.slice(9) as string;
       } else if (jsonFinalResponse.status === "failed") {
         break;
       } else {
@@ -126,18 +115,18 @@ export default async function handler(
       }
     }
 
-    if (generatedImage) {
-      await prisma.room.create({
+    if (generatedDescription) {
+      await prisma.description.create({
         data: {
-          replicateId: roomId,
+          replicateId: descId,
           user: {
             connect: {
               email: session.user.email!,
             },
           },
           inputImage: originalImage,
-          outputImage: generatedImage,
-          prompt: prompt,
+          inputFeatures: "test",
+          outputShortDesc: generatedDescription,
         },
       });
     } else {
@@ -145,11 +134,11 @@ export default async function handler(
     }
 
     res.status(200).json(
-      generatedImage
+      generatedDescription
         ? {
             original: originalImage,
-            generated: generatedImage,
-            id: roomId,
+            generated: generatedDescription,
+            id: descId,
           }
         : "Failed to restore image"
     );

@@ -1,7 +1,6 @@
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -36,16 +35,16 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  credits       Int        @default(3)
+  credits       Int           @default(3)
   location      String?
   accounts      Account[]
   sessions      Session[]
-  rooms         Room[]
+  descriptions  Description[]
   purchases     Purchase[]
 }
 
@@ -57,16 +56,19 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Room {
-  id          String   @id @default(cuid())
-  replicateId String
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  inputImage  String
-  outputImage String
-  prompt      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Description {
+  id              String   @id @default(cuid())
+  replicateId     String
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inputImage      String
+  inputFeatures   String
+  outputTitle     String?
+  outputShortDesc String?
+  outputFullDesc  String?
+  outputAdvice    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@unique([replicateId, userId])
 }

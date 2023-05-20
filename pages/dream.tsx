@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
 import { CompareSlider } from "../components/CompareSlider";
@@ -22,6 +22,8 @@ import { Rings } from "react-loader-spinner";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
+import { VibeType } from "../components/DropDownText";
+import { json } from "stream/consumers";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -31,15 +33,13 @@ const uploader = Uploader({
 });
 
 const Home: NextPage = () => {
+  // Replicate
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
-  const [restoredImage, setRestoredImage] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [restoredLoaded, setRestoredLoaded] = useState<boolean>(false);
-  const [sideBySide, setSideBySide] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [imageCaption, setImageCaption] = useState<string | null>(null);
+  const [captionLoaded, setCaptionLoaded] = useState<boolean>(false);
   const [photoName, setPhotoName] = useState<string | null>(null);
-  const [theme, setTheme] = useState<themeType>("Modern");
-  const [room, setRoom] = useState<roomType>("Living Room");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, mutate } = useSWR("/api/remaining", fetcher);
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ imageUrl: fileUrl, theme, room }),
+      body: JSON.stringify({ imageUrl: fileUrl }),
     });
 
     let response = (await res.json()) as GenerateResponseData;
@@ -104,16 +104,70 @@ const Home: NextPage = () => {
       setError(response as any);
     } else {
       mutate();
-      const rooms =
-        (JSON.parse(localStorage.getItem("rooms") || "[]") as string[]) || [];
-      rooms.push(response.id);
-      localStorage.setItem("rooms", JSON.stringify(rooms));
-      setRestoredImage(response.generated);
+      const descriptions =
+        (JSON.parse(
+          localStorage.getItem("descriptions") || "[]"
+        ) as string[]) || [];
+      descriptions.push(response.id);
+      localStorage.setItem("descriptions", JSON.stringify(descriptions));
+      setImageCaption(response.generated);
+      generateDescription(response.generated);
     }
     setTimeout(() => {
       setLoading(false);
     }, 1300);
   }
+
+  // OpenAI
+  const [vibe, setVibe] = useState<VibeType>("Professional");
+  const [generatedDescriptions, setGeneratedDescriptions] =
+    useState<String>("");
+
+  const bioRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBios = () => {
+    if (bioRef.current !== null) {
+      bioRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const generateDescription = async (caption: string | null) => {
+    const prompt = `this is a generated caption of a product I want to sell : ${caption}, can you generate JSON object with a title, a short description (2-3 lines), a full description and caring advice for a prestashop ecommerce in a ${vibe} tone ?`;
+    setGeneratedDescriptions("");
+    setLoading(true);
+    const response = await fetch("/api/generate-text", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      setGeneratedDescriptions((prev) => prev + chunkValue);
+    }
+    scrollToBios();
+    setLoading(false);
+  };
 
   const router = useRouter();
 
@@ -126,7 +180,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>RoomGPT</title>
+        <title>depikt</title>
       </Head>
       <Header
         photo={session?.user?.image || undefined}
@@ -157,7 +211,7 @@ const Home: NextPage = () => {
         <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
           Generate your <span className="text-blue-600">dream</span> room
         </h1>
-        {status === "authenticated" && data && !restoredImage && (
+        {status === "authenticated" && data && !imageCaption && (
           <p className="text-gray-400">
             You have{" "}
             <span className="font-semibold text-gray-300">
@@ -182,29 +236,6 @@ const Home: NextPage = () => {
         <ResizablePanel>
           <AnimatePresence mode="wait">
             <motion.div className="flex justify-between items-center w-full flex-col mt-4">
-              {restoredImage && (
-                <div>
-                  Here's your remodeled <b>{room.toLowerCase()}</b> in the{" "}
-                  <b>{theme.toLowerCase()}</b> theme!{" "}
-                </div>
-              )}
-              <div
-                className={`${
-                  restoredLoaded ? "visible mt-6 -ml-8" : "invisible"
-                }`}
-              >
-                <Toggle
-                  className={`${restoredLoaded ? "visible mb-6" : "invisible"}`}
-                  sideBySide={sideBySide}
-                  setSideBySide={(newVal) => setSideBySide(newVal)}
-                />
-              </div>
-              {restoredLoaded && sideBySide && (
-                <CompareSlider
-                  original={originalPhoto!}
-                  restored={restoredImage!}
-                />
-              )}
               {status === "loading" ? (
                 <div className="max-w-[670px] h-[250px] flex justify-center items-center">
                   <Rings
@@ -220,44 +251,6 @@ const Home: NextPage = () => {
                 </div>
               ) : status === "authenticated" && !originalPhoto ? (
                 <>
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-3 items-center space-x-3">
-                      <Image
-                        src="/number-1-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      />
-                      <p className="text-left font-medium">
-                        Choose your room theme.
-                      </p>
-                    </div>
-                    <DropDown
-                      theme={theme}
-                      // @ts-ignore
-                      setTheme={(newTheme) => setTheme(newTheme)}
-                      themes={themes}
-                    />
-                  </div>
-                  <div className="space-y-4 w-full max-w-sm">
-                    <div className="flex mt-10 items-center space-x-3">
-                      <Image
-                        src="/number-2-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      />
-                      <p className="text-left font-medium">
-                        Choose your room type.
-                      </p>
-                    </div>
-                    <DropDown
-                      theme={room}
-                      // @ts-ignore
-                      setTheme={(newRoom) => setRoom(newRoom)}
-                      themes={rooms}
-                    />
-                  </div>
                   <div className="mt-4 w-full max-w-sm">
                     <div className="flex mt-6 w-96 items-center space-x-3">
                       <Image
@@ -296,7 +289,7 @@ const Home: NextPage = () => {
                   </div>
                 )
               )}
-              {originalPhoto && !restoredImage && (
+              {originalPhoto && !imageCaption && (
                 <Image
                   alt="original photo"
                   src={originalPhoto}
@@ -304,33 +297,6 @@ const Home: NextPage = () => {
                   width={475}
                   height={475}
                 />
-              )}
-              {restoredImage && originalPhoto && !sideBySide && (
-                <div className="flex sm:space-x-4 sm:flex-row flex-col">
-                  <div>
-                    <h2 className="mb-1 font-medium text-lg">Original Room</h2>
-                    <Image
-                      alt="original photo"
-                      src={originalPhoto}
-                      className="rounded-2xl relative w-full h-96"
-                      width={475}
-                      height={475}
-                    />
-                  </div>
-                  <div className="sm:mt-0 mt-8">
-                    <h2 className="mb-1 font-medium text-lg">Generated Room</h2>
-                    <a href={restoredImage} target="_blank" rel="noreferrer">
-                      <Image
-                        alt="restored photo"
-                        src={restoredImage}
-                        className="rounded-2xl relative sm:mt-0 mt-2 cursor-zoom-in w-full h-96"
-                        width={475}
-                        height={475}
-                        onLoadingComplete={() => setRestoredLoaded(true)}
-                      />
-                    </a>
-                  </div>
-                </div>
               )}
               {loading && (
                 <button
@@ -355,31 +321,56 @@ const Home: NextPage = () => {
                   </div>
                 </div>
               )}
+              {imageCaption && <div>Generated caption : {imageCaption}</div>}
+              <div className="space-y-10 my-10">
+                {generatedDescriptions && (
+                  <>
+                    <div>
+                      <h2
+                        className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto"
+                        ref={bioRef}
+                      >
+                        Your generated bios
+                      </h2>
+                    </div>
+                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
+                      {generatedDescriptions
+                        .substring(generatedDescriptions.indexOf("1") + 3)
+                        .split("2.")
+                        .map((generatedDescription) => {
+                          return (
+                            <div
+                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                              onClick={() => {
+                                navigator.clipboard.writeText(
+                                  generatedDescription
+                                );
+                                toast("Bio copied to clipboard", {
+                                  icon: "✂️",
+                                });
+                              }}
+                              key={generatedDescription}
+                            >
+                              <p>{generatedDescription}</p>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </>
+                )}
+              </div>
               <div className="flex space-x-2 justify-center">
                 {originalPhoto && !loading && !error && (
                   <button
                     onClick={() => {
                       setOriginalPhoto(null);
-                      setRestoredImage(null);
-                      setRestoredLoaded(false);
+                      setImageCaption(null);
+                      setCaptionLoaded(false);
                       setError(null);
                     }}
                     className="bg-blue-500 rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-blue-500/80 transition"
                   >
-                    Generate New Room
-                  </button>
-                )}
-                {restoredLoaded && (
-                  <button
-                    onClick={() => {
-                      downloadPhoto(
-                        restoredImage!,
-                        appendNewToName(photoName!)
-                      );
-                    }}
-                    className="bg-white rounded-full text-black border font-medium px-4 py-2 mt-8 hover:bg-gray-100 transition"
-                  >
-                    Download Generated Room
+                    Generate New Description
                   </button>
                 )}
               </div>

@@ -59,6 +59,10 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       // @ts-ignore
       switch (paymentIntent.amount_subtotal) {
+        case 50:
+        case 100:
+          creditAmount = 2000;
+          break;
         case 500:
         case 1000:
           creditAmount = 20;
@@ -70,11 +74,6 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         case 3500:
         case 5000:
           creditAmount = 250;
-          break;
-        case 7000:
-        case 7900:
-        case 10000:
-          creditAmount = 750;
           break;
       }
       await prisma.user.update({

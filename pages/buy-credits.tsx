@@ -11,10 +11,22 @@ export default function Pricing() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data } = useSWR("/api/remaining", fetcher);
 
+  const addCredit = async () => {
+    await fetch("/api/add-credits", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: session?.user?.email,
+      }),
+    });
+  };
+
   return (
     <div className="flex mx-auto max-w-7xl overflow-visible flex-col items-center justify-center py-2 min-h-screen">
       <Head>
-        <title>Buy RoomGPT Credits</title>
+        <title>Buy depikt Credits</title>
       </Head>
       <Script src="https://js.stripe.com/v3/pricing-table.js" />
       <Script src="https://cdn.paritydeals.com/banner.js" />
@@ -26,10 +38,16 @@ export default function Pricing() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Buy RoomGPT Credits
+              Buy depikt Credits
             </p>
           </div>
         </div>
+        <button
+          onClick={addCredit}
+          className="mt-4 bg-lime-500 hover:bg-lime-600 ease-in duration-100 border-lime-800 rounded-sm p-2 "
+        >
+          Add Credit
+        </button>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-500 mb-10">
           You currently have{" "}
           <span className="font-semibold text-gray-400">
@@ -43,8 +61,8 @@ export default function Pricing() {
         {session?.user?.email && (
           // @ts-ignore
           <stripe-pricing-table
-            pricing-table-id="prctbl_1MobnNK4W9ejG97elHjeFCEq"
-            publishable-key="pk_live_51HGpOvK4W9ejG97eYSm02d1hgagCOAAcKQCtH7258w6fA8wxo2PRv2xs2wSUG2xkV2YLBc0h3HxKITTFeJGtWai500o6bqGFHF"
+            pricing-table-id="prctbl_1N9t30FQIvRnpxHU5NfU5nqo"
+            publishable-key="pk_live_51N9sgXFQIvRnpxHUxPH9Wd2gRfHJZYPTLhFX3ISTwG9LsvY1W0ZokmXx73d5L4I27DE2Kgm5ccCFId4EDbE3vA3400dMHcOplW"
             client-reference-id={session.user.email}
             customer-email={session.user.email}
           />

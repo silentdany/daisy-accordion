@@ -133,7 +133,7 @@ const Home: NextPage = () => {
   };
 
   const generateDescription = async (caption: string | null) => {
-    const prompt = `this is a generated caption of a product I want to sell : ${caption}, can you generate JSON object with a title, a short description (2-3 lines), a full description and caring advice for a prestashop ecommerce in a ${vibe} tone ?`;
+    const prompt = `this is a generated caption of a product I want to sell : ${caption}, can you generate JSON object with a title, a short description (2-3 lines), a full description (5-6 lines) and caring advice for a prestashop ecommerce in a ${vibe} tone ? Do not include background or accessories in the process.`;
     setGeneratedDescriptions("");
     setLoading(true);
     const response = await fetch("/api/generate-text", {

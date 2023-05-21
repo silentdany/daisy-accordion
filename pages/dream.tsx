@@ -120,6 +120,7 @@ const Home: NextPage = () => {
 
   // OpenAI
   const [vibe, setVibe] = useState<VibeType>("Professional");
+  const [descriptionLoaded, setDescriptionLoaded] = useState<boolean>(false);
   const [generatedDescriptions, setGeneratedDescriptions] =
     useState<String>("");
 
@@ -164,6 +165,10 @@ const Home: NextPage = () => {
       done = doneReading;
       const chunkValue = decoder.decode(value);
       setGeneratedDescriptions((prev) => prev + chunkValue);
+    }
+    if (done) {
+      setDescriptionLoaded(true);
+      console.log("Stream complete");
     }
     scrollToBios();
     setLoading(false);
@@ -355,6 +360,88 @@ const Home: NextPage = () => {
                             </div>
                           );
                         })}
+                    </div>
+                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
+                      {descriptionLoaded && (
+                        <>
+                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
+                            Title
+                          </h3>
+                          <p
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                JSON.parse(`{${generatedDescriptions}`).title
+                              );
+                              toast("Title copied to clipboard", {
+                                icon: "✂️",
+                              });
+                            }}
+                          >
+                            {JSON.parse(`{${generatedDescriptions}`).title}
+                          </p>
+                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
+                            Short description
+                          </h3>
+                          <p
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                JSON.parse(`{${generatedDescriptions}`)
+                                  .short_description
+                              );
+                              toast("Short description copied to clipboard", {
+                                icon: "✂️",
+                              });
+                            }}
+                          >
+                            {
+                              JSON.parse(`{${generatedDescriptions}`)
+                                .short_description
+                            }
+                          </p>
+                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
+                            Full description
+                          </h3>
+                          <p
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                JSON.parse(`{${generatedDescriptions}`)
+                                  .full_description
+                              );
+                              toast("Full description copied to clipboard", {
+                                icon: "✂️",
+                              });
+                            }}
+                          >
+                            {
+                              JSON.parse(`{${generatedDescriptions}`)
+                                .full_description
+                            }
+                          </p>
+                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
+                            Caring advices
+                          </h3>
+                          <p
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            onClick={() => {
+                              navigator.clipboard.writeText(
+                                JSON.parse(`{${generatedDescriptions}`)
+                                  .caring_advice
+                              );
+                              toast("Caring advices copied to clipboard", {
+                                icon: "✂️",
+                              });
+                            }}
+                          >
+                            {
+                              JSON.parse(`{${generatedDescriptions}`)
+                                .caring_advice
+                            }
+                          </p>
+                        </>
+                      )}
                     </div>
                   </>
                 )}

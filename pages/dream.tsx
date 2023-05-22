@@ -33,13 +33,61 @@ const uploader = Uploader({
 });
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   // Replicate
   const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
   const [imageCaption, setImageCaption] = useState<string | null>(null);
-  const [captionLoaded, setCaptionLoaded] = useState<boolean>(false);
+  console.log("🚀 ~ file: dream.tsx:41 ~ imageCaption:", imageCaption);
   const [photoName, setPhotoName] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  // OpenAI
+  const [vibe, setVibe] = useState<VibeType>("Professional");
+
+  const [generatedTitle, setGeneratedTitle] = useState<string | null>(null);
+  const [generatedTitleDone, setGeneratedTitleDone] = useState<boolean>(false);
+  console.log(
+    "🚀 ~ file: dream.tsx:53 ~ generatedTitleDone:",
+    generatedTitleDone
+  );
+  console.log("🚀 ~ file: dream.tsx:52 ~ generatedTitle:", generatedTitle);
+  const [generatedShortDesc, setGeneratedShortDesc] = useState<string | null>(
+    null
+  );
+  const [generatedShortDescDone, setGeneratedShortDescDone] =
+    useState<boolean>(false);
+  console.log(
+    "🚀 ~ file: dream.tsx:59 ~ generatedShortDescDone:",
+    generatedShortDescDone
+  );
+  console.log(
+    "🚀 ~ file: dream.tsx:56 ~ generatedShortDesc:",
+    generatedShortDesc
+  );
+  const [generatedFullDesc, setGeneratedFullDesc] = useState<string | null>(
+    null
+  );
+  const [generatedFullDescDone, setGeneratedFullDescDone] =
+    useState<boolean>(false);
+  console.log(
+    "🚀 ~ file: dream.tsx:60 ~ generatedFullDesc:",
+    generatedFullDesc
+  );
+  const [generatedCaringAdvice, setGeneratedCaringAdvice] = useState<
+    string | null
+  >(null);
+  const [generatedCaringAdviceDone, setGeneratedCaringAdviceDone] =
+    useState<boolean>(false);
+  console.log(
+    "🚀 ~ file: dream.tsx:62 ~ generatedCaringAdvice:",
+    generatedCaringAdvice
+  );
+
+  const titlePrompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${imageCaption}, generate a very short title (40 characters max) in a ${vibe} tone. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
+  const shortDescPrompt = `this is the title a product I want to sell on my e-commerce website : ${generatedTitle}, generate a short description (between 150 and 200 characters) in a ${vibe} tone.`;
+  const fullDescPrompt = `this is the short description a product I want to sell on my e-commerce website : ${generatedShortDesc}, generate a full description (between 400 and 600 characters) in a ${vibe} tone. Reformulate from the short description so it doesn't begin the same way.`;
+  const caringAdvicePrompt = `this is the full description a product I want to sell on my e-commerce website : ${generatedFullDesc}, generate a few caring advices (between 200 and 400 characters) for ${generatedTitle} in a ${vibe} tone.`;
+
+  // Replicate
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, mutate } = useSWR("/api/remaining", fetcher);
@@ -111,19 +159,46 @@ const Home: NextPage = () => {
       descriptions.push(response.id);
       localStorage.setItem("descriptions", JSON.stringify(descriptions));
       setImageCaption(response.generated);
-      generateDescription(response.generated);
     }
     setTimeout(() => {
       setLoading(false);
     }, 1300);
   }
 
-  // OpenAI
-  const [vibe, setVibe] = useState<VibeType>("Professional");
-  const [descriptionLoaded, setDescriptionLoaded] = useState<boolean>(false);
-  const [generatedDescriptions, setGeneratedDescriptions] =
-    useState<String>("");
+  useEffect(() => {
+    if (imageCaption) {
+      generateText(titlePrompt, setGeneratedTitle, setGeneratedTitleDone);
+    }
+  }, [imageCaption]);
+  useEffect(() => {
+    if (generatedTitleDone) {
+      generateText(
+        shortDescPrompt,
+        setGeneratedShortDesc,
+        setGeneratedShortDescDone
+      );
+    }
+  }, [generatedTitleDone]);
+  useEffect(() => {
+    if (generatedShortDescDone) {
+      generateText(
+        fullDescPrompt,
+        setGeneratedFullDesc,
+        setGeneratedFullDescDone
+      );
+    }
+  }, [generatedShortDescDone]);
+  useEffect(() => {
+    if (generatedFullDescDone) {
+      generateText(
+        caringAdvicePrompt,
+        setGeneratedCaringAdvice,
+        setGeneratedCaringAdviceDone
+      );
+    }
+  }, [generatedFullDescDone]);
 
+  // OpenAI
   const bioRef = useRef<null | HTMLDivElement>(null);
 
   const scrollToBios = () => {
@@ -132,9 +207,12 @@ const Home: NextPage = () => {
     }
   };
 
-  const generateDescription = async (caption: string | null) => {
-    const prompt = `this is a generated caption of a product I want to sell : ${caption}, can you generate JSON object with a title, a short description (2-3 lines), a full description (5-6 lines) and caring advice for a prestashop ecommerce in a ${vibe} tone ? Do not include background or accessories in the process.`;
-    setGeneratedDescriptions("");
+  const generateText = async (
+    prompt: string | null,
+    setElement: Function,
+    setElementDone: Function
+  ) => {
+    setElement("");
     setLoading(true);
     const response = await fetch("/api/generate-text", {
       method: "POST",
@@ -164,11 +242,11 @@ const Home: NextPage = () => {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setGeneratedDescriptions((prev) => prev + chunkValue);
+      setElement((prev: string) => prev + chunkValue);
     }
     if (done) {
-      setDescriptionLoaded(true);
-      console.log("Stream complete");
+      setElementDone(true);
+      console.log("Element done");
     }
     scrollToBios();
     setLoading(false);
@@ -326,133 +404,94 @@ const Home: NextPage = () => {
                   </div>
                 </div>
               )}
-              {imageCaption && <div>Generated caption : {imageCaption}</div>}
-              <div className="space-y-10 my-10">
-                {generatedDescriptions && (
-                  <>
-                    <div>
-                      <h2
-                        className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto"
-                        ref={bioRef}
-                      >
-                        Your generated bios
-                      </h2>
-                    </div>
-                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
-                      {generatedDescriptions
-                        .substring(generatedDescriptions.indexOf("1") + 3)
-                        .split("2.")
-                        .map((generatedDescription) => {
-                          return (
+              {imageCaption && (
+                <>
+                  <div>Generated caption : {imageCaption}</div>
+                  <div className="space-y-10 my-10">
+                    {generatedTitle && (
+                      <>
+                        <div>
+                          <h2
+                            className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto"
+                            ref={bioRef}
+                          >
+                            Your generated bios
+                          </h2>
+                        </div>
+                        <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
+                          <div
+                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                            onClick={() => {
+                              navigator.clipboard.writeText(generatedTitle);
+                              toast("Bio copied to clipboard", {
+                                icon: "✂️",
+                              });
+                            }}
+                          >
+                            <p>{generatedTitle}</p>
+                          </div>
+                          {generatedShortDesc && (
                             <div
                               className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
                               onClick={() => {
                                 navigator.clipboard.writeText(
-                                  generatedDescription
+                                  generatedShortDesc
                                 );
                                 toast("Bio copied to clipboard", {
                                   icon: "✂️",
                                 });
                               }}
-                              key={generatedDescription}
                             >
-                              <p>{generatedDescription}</p>
+                              <p>{generatedShortDesc}</p>
                             </div>
-                          );
-                        })}
-                    </div>
-                    <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
-                      {descriptionLoaded && (
-                        <>
-                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
-                            Title
-                          </h3>
-                          <p
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                            onClick={() => {
-                              navigator.clipboard.writeText(
-                                JSON.parse(`{${generatedDescriptions}`).title
-                              );
-                              toast("Title copied to clipboard", {
-                                icon: "✂️",
-                              });
-                            }}
-                          >
-                            {JSON.parse(`{${generatedDescriptions}`).title}
-                          </p>
-                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
-                            Short description
-                          </h3>
-                          <p
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                            onClick={() => {
-                              navigator.clipboard.writeText(
-                                JSON.parse(`{${generatedDescriptions}`)
-                                  .short_description
-                              );
-                              toast("Short description copied to clipboard", {
-                                icon: "✂️",
-                              });
-                            }}
-                          >
-                            {
-                              JSON.parse(`{${generatedDescriptions}`)
-                                .short_description
-                            }
-                          </p>
-                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
-                            Full description
-                          </h3>
-                          <p
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                            onClick={() => {
-                              navigator.clipboard.writeText(
-                                JSON.parse(`{${generatedDescriptions}`)
-                                  .full_description
-                              );
-                              toast("Full description copied to clipboard", {
-                                icon: "✂️",
-                              });
-                            }}
-                          >
-                            {
-                              JSON.parse(`{${generatedDescriptions}`)
-                                .full_description
-                            }
-                          </p>
-                          <h3 className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto">
-                            Caring advices
-                          </h3>
-                          <p
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                            onClick={() => {
-                              navigator.clipboard.writeText(
-                                JSON.parse(`{${generatedDescriptions}`)
-                                  .caring_advice
-                              );
-                              toast("Caring advices copied to clipboard", {
-                                icon: "✂️",
-                              });
-                            }}
-                          >
-                            {
-                              JSON.parse(`{${generatedDescriptions}`)
-                                .caring_advice
-                            }
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
+                          )}
+                          {generatedFullDesc && (
+                            <div
+                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                              onClick={() => {
+                                navigator.clipboard.writeText(
+                                  generatedFullDesc
+                                );
+                                toast("Bio copied to clipboard", {
+                                  icon: "✂️",
+                                });
+                              }}
+                            >
+                              <p>{generatedFullDesc}</p>
+                            </div>
+                          )}
+                          {generatedCaringAdvice && (
+                            <div
+                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                              onClick={() => {
+                                navigator.clipboard.writeText(
+                                  generatedCaringAdvice
+                                );
+                                toast("Bio copied to clipboard", {
+                                  icon: "✂️",
+                                });
+                              }}
+                            >
+                              <p>{generatedCaringAdvice}</p>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
               <div className="flex space-x-2 justify-center">
                 {originalPhoto && !loading && !error && (
                   <button
                     onClick={() => {
                       setOriginalPhoto(null);
                       setImageCaption(null);
-                      setCaptionLoaded(false);
+                      setPhotoName(null);
+                      setGeneratedTitle(null);
+                      setGeneratedShortDesc(null);
+                      setGeneratedFullDesc(null);
+                      setGeneratedCaringAdvice(null);
                       setError(null);
                     }}
                     className="bg-blue-500 rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-blue-500/80 transition"

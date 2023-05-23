@@ -25,15 +25,15 @@ const Home: NextPage = () => {
               appear={true}
               show={true}
               enter="transition ease-out duration-[3000ms]"
-              enterFrom="transform opacity-0 scale-100 -translate-x-24"
+              enterFrom="transform opacity-0 scale-100"
               enterTo="transform opacity-100 scale-100"
             >
               <Image
                 alt="Original photo of a room"
-                src="/fake-product.png"
+                src="/packshot.png"
                 className="absolute z-10 object-contain h-96"
-                width={400}
-                height={400}
+                width={373}
+                height={373}
               />
             </Transition>
           </div>
@@ -63,7 +63,8 @@ const Home: NextPage = () => {
               className="animate-border inline-block rounded-md bg-white bg-gradient-to-r shadow-sm hover:shadow-2xl hover:translate-x-1 duration-100 from-primary-500 via-teal-500 via-30% to-fuchsia-500 bg-[length:400%_400%] p-2"
             >
               <span className="block rounded-md bg-secondary-50 px-8 py-4 font-bold text-neutral-900 text-2xl">
-                Boost your product
+                Boost your{" "}
+                <span className="text-primary-500 font-bold">product</span>ivity
               </span>
             </Link>
           </div>
@@ -73,7 +74,7 @@ const Home: NextPage = () => {
               appear={true}
               show={true}
               enter="transition ease-out duration-[3000ms]"
-              enterFrom="transform opacity-0 scale-100 -translate-x-48"
+              enterFrom="transform opacity-0 scale-100"
               enterTo="transform opacity-100 scale-100"
             >
               <div className="z-10 flex flex-col justify-center p-4 space-y-4 font-mono text-sm leading-4 text-neutral-500 h-96">

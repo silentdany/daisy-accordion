@@ -17,9 +17,9 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-20 text-center sm:mt-20">
-        <div className="flex items-center justify-center w-full">
-          <div className="relative w-1/3 overflow-hidden translate-x-24 h-96">
+      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-12 text-center sm:mt-12 space-y-12">
+        <div className="flex w-full justify-between translate-y-16">
+          <div className="w-1/3 h-96 bg-gradient-to-tl from-primary-500 via-teal-500 via-30% to-fuchsia-500 rounded-2xl z-10">
             <Transition
               as={Fragment}
               appear={true}
@@ -36,29 +36,38 @@ const Home: NextPage = () => {
                 height={400}
               />
             </Transition>
-            <div className="bg-gradient-to-l z-20 from-neutral-900 to-transparent from-40% to-60% absolute w-full h-full"></div>
-            <div className="bg-gradient-to-bl z-0 from-transparent rounded-2xl to-fuchsia-500 via-primary-500 via-35% absolute w-full h-full"></div>
           </div>
-          <div className="z-10 flex flex-col items-center justify-center w-1/3 h-96 bg-neutral-900">
-            <h1 className="max-w-4xl mx-auto text-5xl font-bold tracking-normal text-gray-300 font-display sm:text-5xl">
-              <em className="not-italic text-primary-500">1-click</em> Optimized
+          <div className="flex place-items-center w-2/3">
+            <h1 className="text-5xl w-full font-bold tracking-normal font-display sm:text-6xl px-8">
+              <em className="not-italic text-primary-500">1-click</em>
+              <br />
+              Optimized
+              <br />
               Product Infos.
             </h1>
-            <h2 className="max-w-xl mx-auto mt-12 text-lg leading-7 text-gray-500 sm:text-gray-400">
-              Generate all your e-commerce product infos with{" "}
-              <em className="not-italic text-primary-500">AI</em> from its
+          </div>
+        </div>
+        <div className="relative w-[95%] bg-gray-200 -z-10">
+          <div className="absolute w-[95%] top-0 h-4 mx-4 progress overflow-hidden bg-primary-500"></div>
+        </div>
+        <div className="w-full flex justify-between -translate-y-12">
+          <div className="flex flex-col justify-around items-center w-2/3">
+            <h2 className="w-3/4 text-3xl leading-7 text-neutral-700 sm:text-neutral-600 mt-16 ">
+              Generate all your e-commerce product informations from its
               pictures.
-              {/* <br />
-              Focus on your business, we're taking care of boring tasks. */}
+              <br />
+              Thanks to <em className="not-italic text-primary-500">AI</em>.
             </h2>
             <Link
-              className="px-4 py-3 mt-8 font-medium text-white transition w-max bg-primary-600 rounded-xl sm:mt-10 hover:bg-primary-500"
               href="/dream"
+              className="animate-border inline-block rounded-md bg-white bg-gradient-to-r shadow-sm hover:shadow-2xl hover:translate-x-1 duration-100 from-primary-500 via-teal-500 via-30% to-fuchsia-500 bg-[length:400%_400%] p-2"
             >
-              Boost your product
+              <span className="block rounded-md bg-secondary-50 px-8 py-4 font-bold text-neutral-900 text-2xl">
+                Boost your product
+              </span>
             </Link>
           </div>
-          <div className="relative w-1/3 -translate-x-24 h-96">
+          <div className="w-1/3 h-96 bg-gradient-to-br from-primary-500 via-teal-500 via-30% to-fuchsia-500 rounded-2xl z-10">
             <Transition
               as={Fragment}
               appear={true}
@@ -67,7 +76,7 @@ const Home: NextPage = () => {
               enterFrom="transform opacity-0 scale-100 -translate-x-48"
               enterTo="transform opacity-100 scale-100"
             >
-              <div className="absolute z-10 flex flex-col justify-center p-4 space-y-4 font-mono text-sm leading-4 text-neutral-500 h-96">
+              <div className="z-10 flex flex-col justify-center p-4 space-y-4 font-mono text-sm leading-4 text-neutral-500 h-96">
                 <div className="p-2 transition bg-white shadow-xl rounded-xl hover:bg-gray-100">
                   Craft Beer Perfection
                 </div>
@@ -89,10 +98,9 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </Transition>
-            <div className="bg-gradient-to-r z-20 from-neutral-900 to-transparent from-40% to-60% absolute w-full h-full"></div>
-            <div className="absolute z-0 w-full h-full bg-gradient-to-tr from-transparent via-primary-500 via-35% to-fuchsia-500 rounded-2xl"></div>
           </div>
         </div>
+
         <div className="flex flex-col items-center justify-between w-full mt-6 sm:mt-10">
           <div className="flex flex-col mt-4 mb-16 space-y-10">
             <div className="flex flex-col sm:space-x-8 sm:flex-row">

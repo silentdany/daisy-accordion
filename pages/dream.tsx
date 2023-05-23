@@ -83,12 +83,11 @@ const Home: NextPage = () => {
   );
 
   const titlePrompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${imageCaption}, generate a very short title (40 characters max) in a ${vibe} tone. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
-  const shortDescPrompt = `this is the title a product I want to sell on my e-commerce website : ${generatedTitle}, generate a short description (between 150 and 200 characters) in a ${vibe} tone.`;
-  const fullDescPrompt = `this is the short description a product I want to sell on my e-commerce website : ${generatedShortDesc}, generate a full description (between 400 and 600 characters) in a ${vibe} tone. Reformulate from the short description so it doesn't begin the same way.`;
-  const caringAdvicePrompt = `this is the full description a product I want to sell on my e-commerce website : ${generatedFullDesc}, generate a few caring advices (between 200 and 400 characters) for ${generatedTitle} in a ${vibe} tone.`;
+  const shortDescPrompt = `this is the title of a product I want to sell on my e-commerce website : ${generatedTitle}, generate a short description (between 150 and 200 characters) in a ${vibe} tone.`;
+  const fullDescPrompt = `this is the short description of a product I want to sell on my e-commerce website : ${generatedShortDesc}, generate a full description (between 400 and 600 characters) in a ${vibe} tone. Reformulate from the short description so it doesn't begin the same way.`;
+  const caringAdvicePrompt = `this is the full description of a product I want to sell on my e-commerce website : ${generatedFullDesc}, generate a few caring advices (between 200 and 400 characters) for ${generatedTitle} in a ${vibe} tone.`;
 
   // Replicate
-
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
   const { data, mutate } = useSWR("/api/remaining", fetcher);
   const { data: session, status } = useSession();
@@ -291,8 +290,8 @@ const Home: NextPage = () => {
             have used roomGPT so far
           </a>
         )}
-        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-slate-100 sm:text-6xl mb-5">
-          Generate your <span className="text-blue-600">dream</span> room
+        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-neutral-100 sm:text-6xl mb-5">
+          Generate your <span className="text-primary-600">dream</span> room
         </h1>
         {status === "authenticated" && data && !imageCaption && (
           <p className="text-gray-400">
@@ -384,7 +383,7 @@ const Home: NextPage = () => {
               {loading && (
                 <button
                   disabled
-                  className="bg-blue-500 rounded-full text-white font-medium px-4 pt-2 pb-3 mt-8 w-40"
+                  className="bg-primary-500 rounded-full text-white font-medium px-4 pt-2 pb-3 mt-8 w-40"
                 >
                   <span className="pt-4">
                     <LoadingDots color="white" style="large" />
@@ -406,19 +405,19 @@ const Home: NextPage = () => {
               )}
               {imageCaption && (
                 <>
-                  <div>Generated caption : {imageCaption}</div>
+                  {/* <div>Generated caption : {imageCaption}</div> */}
                   <div className="space-y-10 my-10">
                     {generatedTitle && (
                       <>
                         <div>
                           <h2
-                            className="sm:text-4xl text-3xl font-bold text-slate-100 mx-auto"
+                            className="sm:text-4xl text-3xl font-bold text-neutral-100 mx-auto"
                             ref={bioRef}
                           >
-                            Your generated bios
+                            Your generated products infos
                           </h2>
                         </div>
-                        <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-slate-900">
+                        <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-neutral-900">
                           <div
                             className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
                             onClick={() => {
@@ -494,7 +493,7 @@ const Home: NextPage = () => {
                       setGeneratedCaringAdvice(null);
                       setError(null);
                     }}
-                    className="bg-blue-500 rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-blue-500/80 transition"
+                    className="bg-primary-500 rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-primary-500/80 transition"
                   >
                     Generate New Description
                   </button>

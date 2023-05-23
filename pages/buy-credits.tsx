@@ -79,7 +79,7 @@ export default function Pricing() {
       >
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -95,7 +95,7 @@ export default function Pricing() {
 
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -111,7 +111,7 @@ export default function Pricing() {
 
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -127,7 +127,7 @@ export default function Pricing() {
 
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -142,7 +142,7 @@ export default function Pricing() {
         </li>
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -157,7 +157,7 @@ export default function Pricing() {
         </li>
         <li className="flex gap-x-3">
           <svg
-            className="h-6 w-5 flex-none text-blue-500"
+            className="h-6 w-5 flex-none text-primary-500"
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"

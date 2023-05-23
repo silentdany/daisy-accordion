@@ -77,11 +77,11 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-      <main className="flex flex-1 text-slate-900 bg-slate-100 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
-        <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
+      <main className="flex flex-1 text-neutral-900 bg-neutral-100 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
+        <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-neutral-900">
           Generate your next Twitter bio using chatGPT
         </h1>
-        <p className="text-slate-500 mt-5">47,118 bios generated so far.</p>
+        <p className="text-neutral-500 mt-5">47,118 bios generated so far.</p>
         <div className="max-w-xl w-full">
           <div className="flex mt-10 items-center space-x-3">
             <Image
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
             />
             <p className="text-left font-medium">
               Copy your current bio{" "}
-              <span className="text-slate-500">
+              <span className="text-neutral-500">
                 (or write a few sentences about yourself)
               </span>
               .
@@ -144,7 +144,7 @@ const Home: NextPage = () => {
             <>
               <div>
                 <h2
-                  className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
+                  className="sm:text-4xl text-3xl font-bold text-neutral-900 mx-auto"
                   ref={bioRef}
                 >
                   Your generated bios

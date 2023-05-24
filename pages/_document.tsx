@@ -22,7 +22,7 @@ class MyDocument extends Document {
           <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} />
         </Head>
-        <body className="bg-neutral-50 text-neutral-700">
+        <body className="bg-fixed bg-neutral-50 text-neutral-700 bg-gradient-to-tl from-primary-500/10 via-tertiary-500/10 to-secondary-500/10">
           <Main />
           <NextScript />
         </body>

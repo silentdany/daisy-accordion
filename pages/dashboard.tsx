@@ -17,7 +17,7 @@ export default function Dashboard({
   const { data: session } = useSession();
 
   return (
-    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <div className="flex flex-col items-center justify-center max-w-6xl min-h-screen py-2 mx-auto">
       <Head>
         <title>depikt Dashboard</title>
       </Head>
@@ -25,8 +25,8 @@ export default function Dashboard({
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
       />
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mb-0 mb-8">
-        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-neutral-100 sm:text-6xl mb-5">
+      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-12 mb-8 text-center sm:mb-0">
+        <h1 className="max-w-4xl mx-auto mb-5 text-4xl font-bold tracking-normal font-display text-neutral-100 sm:text-6xl">
           View your <span className="text-primary-600">description</span>{" "}
           generations
         </h1>
@@ -34,8 +34,8 @@ export default function Dashboard({
           <p className="text-gray-300">
             You have no description generations. Generate one{" "}
             <Link
-              href="/dream"
-              className="text-primary-600 underline underline-offset-2"
+              href="/app"
+              className="underline text-primary-600 underline-offset-2"
             >
               here
             </Link>

@@ -9,7 +9,7 @@ class MyDocument extends Document {
     let title = "Product sheet generator";
 
     return (
-      <Html lang="en">
+      <Html lang="en" className="scroll-smooth">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <meta name="description" content={description} />
@@ -22,7 +22,7 @@ class MyDocument extends Document {
           <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} />
         </Head>
-        <body className="bg-neutral-50 text-neutral-900">
+        <body className="bg-neutral-50 text-neutral-700">
           <Main />
           <NextScript />
         </body>

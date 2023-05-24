@@ -9,7 +9,7 @@ export default function Header({
   email?: string;
 }) {
   return (
-    <header className="flex flex-col xs:flex-row justify-between items-center w-full mt-3 pb-7 sm:px-4 px-2 gap-2">
+    <header className="flex flex-col items-center justify-between w-full gap-2 px-2 mt-3 xs:flex-row pb-7 sm:px-4">
       <Link href="/dream" className="flex space-x-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,24 +26,24 @@ export default function Header({
           />
         </svg>
 
-        <h1 className="sm:text-3xl text-xl ml-2 tracking-tight">
-          de<span className="text-primary-500 font-bold">pikt</span>
+        <h1 className="ml-2 text-xl tracking-tight sm:text-3xl">
+          de<span className="font-bold text-primary-500">pikt</span>
         </h1>
       </Link>
       {email ? (
         <div className="flex items-center space-x-4">
           <Link
             href="/dashboard"
-            className="border-r border-gray-300 pr-4 flex space-x-2 hover:text-primary-400 transition"
+            className="flex pr-4 space-x-2 transition border-r border-gray-300 hover:text-primary-400"
           >
             <div>Dashboard</div>
           </Link>
           <Link
             href="/buy-credits"
-            className="border-r border-gray-300 pr-4 flex space-x-2 hover:text-primary-400 transition"
+            className="flex pr-4 space-x-2 transition border-r border-gray-300 hover:text-primary-400"
           >
             <div>Buy Credits</div>
-            <div className="text-primary-500 bg-primary-200 rounded-full px-2 text-xs flex justify-center items-center font-bold">
+            <div className="flex items-center justify-center px-2 text-xs font-bold rounded-full text-primary-500 bg-primary-200">
               New
             </div>
           </Link>
@@ -56,12 +56,12 @@ export default function Header({
               height={28}
             />
           ) : (
-            <div className="w-10 h-10 rounded-full bg-white" />
+            <div className="w-10 h-10 bg-white rounded-full" />
           )}
         </div>
       ) : (
         <Link
-          className="flex max-w-fit items-center justify-center space-x-2 rounded-xl border border-primary-600 text-white px-5 py-2 text-sm shadow-md hover:bg-primary-400 bg-primary-600 font-medium transition"
+          className="flex items-center justify-center px-5 py-2 space-x-2 text-sm font-medium text-white transition border shadow-md max-w-fit rounded-xl border-primary-500 hover:bg-primary-400 bg-primary-500"
           href="/dream"
         >
           <p>Sign Up </p>

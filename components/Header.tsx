@@ -10,7 +10,7 @@ export default function Header({
 }) {
   return (
     <>
-      <header className="flex flex-col items-center justify-between w-full gap-2 px-2 mt-3 xs:flex-row sm:px-4">
+      <header className="sticky flex flex-col items-center justify-between w-full h-10 gap-2 px-2 mt-3 xs:flex-row sm:px-4">
         <Link href="/app" className="flex space-x-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"

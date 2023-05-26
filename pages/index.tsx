@@ -14,6 +14,7 @@ import {
   RocketLaunchIcon,
   SparklesIcon,
 } from "@heroicons/react/20/solid";
+import useMediaQuery from "../hooks/useMediaQuery";
 
 type CTAButtonProps = {
   title: string;
@@ -35,6 +36,8 @@ const CTAButton = ({ title }: CTAButtonProps) => (
 );
 
 const Home: NextPage = () => {
+  const isLaptop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-auto max-w-7xl">
       <Head>
@@ -43,37 +46,39 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="flex flex-col items-center justify-around h-screen pt-10 pb-32 space-y-12">
+        <div className="flex flex-col items-center justify-around px-4 pt-32 pb-32 space-y-32 lg:h-screen lg:pt-10 lg:space-y-12">
           <div className="flex flex-col items-center justify-between w-full space-y-4">
             <div className="flex place-items-center">
-              <h1 className="px-8 text-5xl font-bold tracking-normal font-display sm:text-6xl">
+              <h1 className="px-8 text-4xl font-bold tracking-normal font-display sm:text-5xl">
                 <em className="not-italic text-primary-500">1-click</em>
                 <br />
                 Optimized Product Infos.
               </h1>
             </div>
             <div className="flex flex-col items-center justify-around">
-              <h2 className="text-3xl text-neutral-700 sm:text-neutral-600 ">
+              <h2 className="text-2xl text-neutral-700 sm:text-neutral-600 ">
                 Generate all your e-shop product information from its pictures.
                 <br />
                 Thanks to <em className="not-italic text-primary-500">AI</em>.
               </h2>
             </div>
           </div>
-          <div className="relative flex items-center justify-between w-full h-1/2">
+          <div className="relative flex flex-col items-center justify-between w-full lg:flex-row h-3/5">
             <div
-              className="flex self-start justify-center w-4/12"
+              className="flex justify-center w-full lg:self-start lg:w-4/12"
               style={{
                 perspective: "300px",
                 transformStyle: "preserve-3d",
               }}
             >
               <div
-                className="w-5/6 shadow-2xl rounded-xl bg-neutral-50 h-96"
+                className="shadow-2xl lg:w-5/6 rounded-xl bg-neutral-50 h-96"
                 style={{
                   perspective: "300px",
                   transformStyle: "preserve-3d",
-                  transform: "rotateY(8deg) rotateX(-3deg)",
+                  transform: isLaptop
+                    ? "rotateY(8deg) rotateX(-3deg)"
+                    : "rotateX(-3deg)",
                 }}
               >
                 <div className="z-10 flex flex-col justify-between w-full p-2 space-y-2 font-mono text-sm leading-4 text-left h-96">
@@ -85,14 +90,14 @@ const Home: NextPage = () => {
                   <Image
                     alt="Example product packshot"
                     src="/packshot.png"
-                    className="z-10 object-contain h-96 bg-gradient-to-b from-neutral-200 to-slate-400 rounded-xl"
-                    width={373}
-                    height={373}
+                    className="z-10 object-contain h-full bg-gradient-to-b from-neutral-200 to-slate-400 rounded-xl"
+                    width={350}
+                    height={350}
                   />
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-start w-1/12 h-full">
+            <div className="flex items-center justify-start h-full lg:w-1/12">
               <div className="absolute right-0 lds-ellipsis ">
                 <div className="bg-primary-500"></div>
                 <div className="bg-primary-500/75"></div>
@@ -100,19 +105,19 @@ const Home: NextPage = () => {
                 <div className="bg-primary-500/25"></div>
               </div>
             </div>
-            <div className="relative flex items-center justify-center w-3/12">
+            <div className="relative flex items-center justify-center w-full h-56 lg:w-3/12">
               <Image
                 alt="Laptop"
                 src="/laptop.png"
-                className="absolute object-contain rounded-full shadow-2xl bg-gradient-to-tl from-primary-500/30 via-secondary-500/30 to-tertiary-500/30 h-72 lg:h-56"
+                className="absolute object-contain w-56 h-56 p-2 rounded-full shadow-2xl bg-gradient-to-tl from-primary-500/30 via-secondary-500/30 to-tertiary-500/30"
                 width={373}
                 height={373}
               />
-              <div className="-mt-3 lg:-mt-2 inline-block absolute h-12 w-12 lg:h-10 lg:w-10 border-secondary-500 animate-[spin_2s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-              <div className="-mt-3 lg:-mt-2 inline-block absolute h-16 w-16 lg:h-14 lg:w-14 border-tertiary-500 animate-[spin_2.5s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-              <div className="-mt-3 lg:-mt-2 inline-block absolute h-20 w-20 lg:h-[4.5rem] lg:w-[4.5rem] border-primary-500 animate-[spin_3s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+              <div className="-mt-1 inline-block absolute h-8 w-8 border-secondary-500 animate-[spin_2s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+              <div className="-mt-1 inline-block absolute h-12 w-12 border-tertiary-500 animate-[spin_2.5s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+              <div className="-mt-1 inline-block absolute h-16 w-16 border-primary-500 animate-[spin_3s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
             </div>
-            <div className="flex items-center justify-end w-1/12 h-full">
+            <div className="flex items-center justify-end h-full lg:w-1/12">
               <div className="absolute right-0 lds-ellipsis ">
                 <div className="bg-primary-500"></div>
                 <div className="bg-primary-500/75"></div>
@@ -121,18 +126,20 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div
-              className="flex self-end justify-center w-4/12"
+              className="flex justify-center w-full md:w-96 lg:self-end lg:w-4/12"
               style={{
                 perspective: "300px",
                 transformStyle: "preserve-3d",
               }}
             >
               <div
-                className="w-5/6 shadow-2xl rounded-xl bg-neutral-50 h-96"
+                className="shadow-2xl lg:w-5/6 rounded-xl bg-neutral-50 h-96"
                 style={{
                   perspective: "300px",
                   transformStyle: "preserve-3d",
-                  transform: "rotateY(-8deg) rotateX(3deg)",
+                  transform: isLaptop
+                    ? "rotateY(-8deg) rotateX(3deg)"
+                    : "rotateX(3deg)",
                   userSelect: "none",
                 }}
               >
@@ -192,16 +199,16 @@ const Home: NextPage = () => {
           <CTAButton title="Let's keep in touch" />
         </div>
 
-        <span className="h-4 translate-x-32 shadow-lg translate-y-2 w-[75%] bg-primary-500 rotate-3 z-20"></span>
-        <span className="w-[75%] shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
-        <span className="w-[75%] shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
+        <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
         <div
           id="next"
           className="flex flex-col justify-between w-full my-32 space-y-32 max-w-7xl items-around"
         >
-          <div className="flex space-x-4">
-            <div className="inline-block w-1/2 p-2 duration-100 bg-white rounded-md shadow-sm bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+          <div className="flex flex-col lg:flex-row lg:space-x-4">
+            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
                 alt="Original photo of a room"
                 src="/1.jpg"
@@ -210,25 +217,31 @@ const Home: NextPage = () => {
                 height={400}
               />
             </div>
-            <div className="flex flex-col justify-center w-1/2 pl-8 text-left">
-              <p className="text-4xl font-bold text-primary-500">Step 1</p>
-              <h3 className="mb-4 text-5xl font-bold uppercase">Upload</h3>
-              <p className="text-2xl pr-28 text-neutral-500">
+            <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">
+              <p className="text-3xl font-bold md:text-4xl text-primary-500">
+                Step 1
+              </p>
+              <h3 className="mb-4 text-4xl font-bold uppercase md:text-5xl">
+                Upload
+              </h3>
+              <p className="text-xl md:text-2xl lg:pr-28 text-neutral-500">
                 Up to 3 pictures of your product you need descriptions for.
               </p>
             </div>
           </div>
-          <div className="flex space-x-4">
-            <div className="flex flex-col justify-center w-1/2 pr-8 text-right">
-              <p className="text-4xl font-bold text-primary-500">Step 2</p>
-              <h3 className="mb-4 text-5xl font-bold uppercase">Generate</h3>
-              <p className="flex items-center justify-end text-2xl pl-28 text-neutral-500">
-                Wait for the
-                <em className="flex mx-1 not-italic text-primary-500">magic</em>
-                to happen !
+          <div className="flex flex-col lg:flex-row lg:space-x-4">
+            <div className="flex flex-col justify-center pr-8 text-left lg:w-1/2 lg:text-right">
+              <p className="text-3xl font-bold md:text-4xl text-primary-500">
+                Step 2
+              </p>
+              <h3 className="mb-4 text-4xl font-bold uppercase md:text-5xl">
+                Generate
+              </h3>
+              <p className="text-xl md:text-2xl lg:pr-28 text-neutral-500">
+                Wait for the magic to happen !
               </p>
             </div>
-            <div className="inline-block w-1/2 p-2 duration-100 bg-white rounded-md shadow-sm bg-gradient-to-tl from-primary-500 via-secondary-500 to-tertiary-500">
+            <div className="inline-block p-2 mt-8 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-tl from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
                 alt="Original photo of a room"
                 src="/1-new.jpg"
@@ -238,8 +251,8 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
-          <div className="flex space-x-4">
-            <div className="inline-block w-1/2 p-2 duration-100 bg-white rounded-md shadow-sm bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+          <div className="flex flex-col lg:flex-row lg:space-x-4">
+            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
                 alt="Original photo of a room"
                 src="/1.jpg"
@@ -248,10 +261,14 @@ const Home: NextPage = () => {
                 height={400}
               />
             </div>
-            <div className="flex flex-col justify-center w-1/2 pl-8 text-left">
-              <p className="text-4xl font-bold text-primary-500">Step 3</p>
-              <h3 className="mb-4 text-5xl font-bold uppercase">Pick</h3>
-              <p className="text-2xl pr-28 text-neutral-500">
+            <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">
+              <p className="text-3xl font-bold md:text-4xl text-primary-500">
+                Step 3
+              </p>
+              <h3 className="mb-4 text-4xl font-bold uppercase md:text-5xl">
+                Pick
+              </h3>
+              <p className="text-xl md:text-2xl lg:pr-28 text-neutral-500">
                 Get 3 fully detailed informations tailored for your product to
                 choose and copy from.
               </p>
@@ -260,13 +277,13 @@ const Home: NextPage = () => {
           <CTAButton title="Keep me informed" />
         </div>
 
-        <span className="h-4 translate-x-32 shadow-lg translate-y-2 w-[75%] bg-primary-500 rotate-3 z-20"></span>
-        <span className="w-[75%] shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
-        <span className="w-[75%] shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
+        <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
         <div className="flex flex-col items-center justify-between w-full my-32 space-y-32 max-w-7xl">
           <div>
-            <h3 className="text-5xl font-bold uppercase">
+            <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
                 What's next ?
               </span>
@@ -275,29 +292,29 @@ const Home: NextPage = () => {
               We have some more ideas coming...
             </p>
           </div>
-          <div className="flex justify-center mx-4">
-            <div className="relative z-20 flex flex-col items-center justify-center w-1/3 h-48 text-3xl font-medium shadow-2xl lg:text-2xl overflow-y-clip bg-primary-500 text-neutral-50">
+          <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
+            <div className="relative z-20 flex flex-col items-center justify-center py-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-primary-500 text-neutral-50">
               <ChatBubbleBottomCenterTextIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-10">
+              <div className="flex items-center px-4">
                 Fine-tune your descriptions
-                <div className="absolute w-10 top-0 h-48 bg-primary-500 translate-y-[87px] -right-4 rotate-12"></div>
-                <div className="absolute w-10 top-0 h-48 bg-primary-500 -translate-y-[87px] -right-4 -rotate-12"></div>
-                <div className="absolute top-0 w-10 h-48 bg-primary-500 rounded-2xl -left-4"></div>
+                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
+                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
+                <div className="absolute left-0 w-full h-10 lg:top-0 lg:w-10 lg:h-48 bg-primary-500 rounded-2xl -top-4 lg:-left-4"></div>
               </div>
             </div>
-            <div className="relative z-10 flex flex-col items-center justify-center w-1/3 h-48 pl-12 text-3xl font-medium shadow-2xl lg:text-2xl overflow-y-clip bg-secondary-500 text-neutral-50">
+            <div className="relative z-10 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-secondary-500 text-neutral-50">
               <Cog6ToothIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-10">
+              <div className="flex items-center px-4">
                 Find product specs easily
-                <div className="absolute w-16 top-0 h-48 bg-secondary-500 translate-y-[87px] -right-4 rotate-12"></div>
-                <div className="absolute w-16 top-0 h-48 bg-secondary-500 -translate-y-[87px] -right-4 -rotate-12"></div>
+                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
+                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
               </div>
             </div>
-            <div className="relative z-0 flex flex-col items-center justify-center w-1/3 h-48 pl-12 pr-4 text-3xl font-medium shadow-2xl lg:text-2xl overflow-y-clip bg-tertiary-500 text-neutral-50">
+            <div className="relative z-0 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-tertiary-500 text-neutral-50">
               <RocketLaunchIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-10">
+              <div className="flex items-center px-4">
                 Enhance your pictures
-                <div className="absolute top-0 w-10 h-48 bg-tertiary-500 rounded-2xl -right-4"></div>
+                <div className="absolute left-0 w-full h-10 lg:left-auto bg-tertiary-500 lg:top-0 lg:w-10 lg:h-48 rounded-2xl -bottom-4 lg:-right-4"></div>
               </div>
             </div>
           </div>

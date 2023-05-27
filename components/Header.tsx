@@ -12,7 +12,14 @@ export default function Header({
     <>
       <header className="sticky flex flex-col items-center justify-between w-full h-10 gap-2 px-2 mt-3 xs:flex-row sm:px-4">
         <Link href="/app" className="flex space-x-2">
-          <svg
+          <Image
+            alt="Depikt logo"
+            src="/logo.png"
+            className="w-10 p-1 rounded-full bg-tertiary-500"
+            width={40}
+            height={40}
+          />
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -25,7 +32,7 @@ export default function Header({
               strokeLinejoin="round"
               d="M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m0-3l-3-3m0 0l-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75"
             />
-          </svg>
+          </svg> */}
 
           <h1 className="ml-2 text-xl tracking-tight sm:text-3xl">
             de<span className="font-bold text-primary-500">pikt</span>

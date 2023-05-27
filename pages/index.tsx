@@ -23,7 +23,7 @@ type CTAButtonProps = {
 const CTAButton = ({ title }: CTAButtonProps) => (
   <Link
     href="#"
-    className="self-center animate-border w-max inline-block hover:shadow-xl hover:translate-x-2 rounded-md bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+    className="self-center animate-border w-max inline-block mb-4 hover:shadow-xl hover:translate-x-2 rounded-md bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
   >
     <span className="flex items-center justify-center px-6 py-3 text-xl font-medium rounded-md md:text-2xl bg-primary-50 text-neutral-900">
       {/* Boost your{" "}
@@ -292,7 +292,7 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
-        <div className="flex flex-col items-center justify-between w-full my-32 space-y-32 max-w-7xl">
+        <div className="flex flex-col items-center justify-between w-full space-y-32 my-first-letter:32 lg:px-4 max-w-7xl">
           <div>
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
@@ -306,7 +306,7 @@ const Home: NextPage = () => {
           <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
             <div className="relative z-20 flex flex-col items-center justify-center py-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-primary-500 text-neutral-50">
               <ChatBubbleBottomCenterTextIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-4">
+              <div className="flex items-center px-12">
                 Fine-tune your descriptions
                 <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
                 <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
@@ -315,7 +315,7 @@ const Home: NextPage = () => {
             </div>
             <div className="relative z-10 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-secondary-500 text-neutral-50">
               <Cog6ToothIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-4">
+              <div className="flex items-center px-12">
                 Find product specs easily
                 <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
                 <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
@@ -323,7 +323,7 @@ const Home: NextPage = () => {
             </div>
             <div className="relative z-0 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-tertiary-500 text-neutral-50">
               <RocketLaunchIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-4">
+              <div className="flex items-center px-12">
                 Enhance your pictures
                 <div className="absolute left-0 w-full h-10 lg:left-auto bg-tertiary-500 lg:top-0 lg:w-10 lg:h-48 rounded-2xl -bottom-4 lg:-right-4"></div>
               </div>

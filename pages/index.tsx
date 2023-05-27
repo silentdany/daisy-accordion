@@ -23,20 +23,20 @@ type CTAButtonProps = {
 const CTAButton = ({ title }: CTAButtonProps) => (
   <Link
     href="#"
-    className="self-center animate-border w-max inline-block hover:shadow-xl hover:translate-x-2 rounded-md bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-2"
+    className="self-center animate-border w-max inline-block hover:shadow-xl hover:translate-x-2 rounded-md bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
   >
-    <span className="flex items-center justify-center px-6 py-3 text-2xl font-bold rounded-md bg-primary-50 text-neutral-900">
+    <span className="flex items-center justify-center px-6 py-3 text-xl font-medium rounded-md md:text-2xl bg-primary-50 text-neutral-900">
       {/* Boost your{" "}
               <span className="font-bold text-primary-500">product</span>
               ivity */}
       {title}{" "}
-      <ArrowTopRightOnSquareIcon className="inline-block w-6 h-6 ml-2" />
+      <ArrowTopRightOnSquareIcon className="inline-block w-6 h-6 ml-2 text-neutral-400" />
     </span>
   </Link>
 );
 
 const Home: NextPage = () => {
-  const isLaptop = useMediaQuery("(min-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 425px)");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-auto max-w-7xl">
@@ -46,24 +46,36 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="flex flex-col items-center justify-around px-4 pt-32 pb-32 space-y-32 lg:h-screen lg:pt-10 lg:space-y-12">
-          <div className="flex flex-col items-center justify-between w-full space-y-4">
-            <div className="flex place-items-center">
-              <h1 className="px-8 text-4xl font-bold tracking-normal font-display sm:text-5xl">
-                <em className="not-italic text-primary-500">1-click</em>
-                <br />
-                Optimized Product Infos.
-              </h1>
-            </div>
-            <div className="flex flex-col items-center justify-around">
-              <h2 className="text-2xl text-neutral-700 sm:text-neutral-600 ">
-                Generate all your e-shop product information from its pictures.
-                <br />
-                Thanks to <em className="not-italic text-primary-500">AI</em>.
-              </h2>
+        <div className="flex flex-col items-end justify-end w-full h-screen px-4 pb-32 xl:-translate-y-10">
+          <div
+            className="flex flex-col items-end justify-center flex-1 w-full space-y-4"
+            style={{
+              backgroundImage: "url(/depikt.webp)",
+              backgroundSize: "contain",
+              backgroundPosition: isMobile ? "center 75%" : "center 40%",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className="flex flex-col h-[10%] md:h-1/4"></div>
+            <div className="flex flex-col flex-1 md:w-2/3">
+              <div className="flex items-center justify-center">
+                <h1 className="text-2xl font-bold tracking-normal md:text-4xl font-display lg:text-5xl xl:text-6xl">
+                  <em className="not-italic text-primary-500">1-click</em>
+                  <br />
+                  Optimized Product Infos.
+                </h1>
+              </div>
+              <div className="flex items-center justify-center">
+                <h2 className="text-lg md:text-2xl text-neutral-700">
+                  Generate all your e-shop product information from its
+                  pictures.
+                  <br />
+                  Thanks to <em className="not-italic text-primary-500">AI</em>.
+                </h2>
+              </div>
             </div>
           </div>
-          <div className="relative flex flex-col items-center justify-between w-full lg:flex-row h-3/5">
+          {/* <div className="relative flex flex-col items-center justify-between w-full lg:flex-row h-3/5">
             <div
               className="flex justify-center w-full lg:self-start lg:w-4/12"
               style={{
@@ -157,7 +169,6 @@ const Home: NextPage = () => {
                     >
                       Pure Elegance
                     </span>
-                    {/* <ClipboardDocumentListIcon className="absolute w-5 h-5 ml-2 right-1 top-1 text-neutral-400" /> */}
                   </p>
                   <p className="relative w-full p-2 font-bold text-left transition border-b-2 rounded shadow bg-secondary-100 border-primary-500">
                     Short Desc:{" "}
@@ -195,7 +206,7 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <CTAButton title="Let's keep in touch" />
         </div>
 
@@ -208,7 +219,7 @@ const Home: NextPage = () => {
           className="flex flex-col justify-between w-full my-32 space-y-32 max-w-7xl items-around"
         >
           <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
                 alt="Original photo of a room"
                 src="/1.jpg"
@@ -237,7 +248,7 @@ const Home: NextPage = () => {
               <h3 className="mb-4 text-4xl font-bold uppercase md:text-5xl">
                 Generate
               </h3>
-              <p className="text-xl md:text-2xl lg:pr-28 text-neutral-500">
+              <p className="text-xl md:text-2xl lg:pl-28 text-neutral-500">
                 Wait for the magic to happen !
               </p>
             </div>
@@ -252,7 +263,7 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
                 alt="Original photo of a room"
                 src="/1.jpg"

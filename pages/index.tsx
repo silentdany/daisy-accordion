@@ -23,9 +23,9 @@ type CTAButtonProps = {
 const CTAButton = ({ title }: CTAButtonProps) => (
   <Link
     href="#"
-    className="self-center animate-border w-max inline-block mb-4 hover:shadow-xl hover:translate-x-2 rounded-md bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+    className="self-center animate-border w-max inline-block mb-4 hover:shadow-xl hover:translate-x-2 rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
   >
-    <span className="flex items-center justify-center px-6 py-3 text-xl font-medium rounded-md md:text-2xl bg-primary-50 text-neutral-900">
+    <span className="flex items-center justify-center px-6 py-3 text-xl font-medium rounded-full md:text-2xl bg-primary-50 text-neutral-900">
       {/* Boost your{" "}
               <span className="font-bold text-primary-500">product</span>
               ivity */}
@@ -292,7 +292,7 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
-        <div className="flex flex-col items-center justify-between w-full space-y-32 my-first-letter:32 lg:px-4 max-w-7xl">
+        <div className="flex flex-col items-center justify-between w-full my-32 space-y-32 lg:px-4 max-w-7xl">
           <div>
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">

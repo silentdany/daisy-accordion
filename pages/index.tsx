@@ -1,18 +1,15 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { Testimonials } from "../components/Testimonials";
-import { useEffect, useState } from "react";
 import {
-  ArrowTopRightOnSquareIcon,
   ChatBubbleBottomCenterTextIcon,
-  ClipboardDocumentListIcon,
   Cog6ToothIcon,
+  ComputerDesktopIcon,
+  DevicePhoneMobileIcon,
+  DeviceTabletIcon,
   RocketLaunchIcon,
-  SparklesIcon,
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CustomButton } from "../components/CustomButton";
@@ -28,7 +25,7 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="flex flex-col items-end justify-end w-full h-screen px-4 pb-32 xl:-translate-y-10">
+        <div className="flex flex-col items-end justify-end w-full h-screen px-4 pb-16 xl:-translate-y-10">
           <div
             className="flex flex-col items-end justify-center flex-1 w-full space-y-4"
             style={{
@@ -57,139 +54,17 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          {/* <div className="relative flex flex-col items-center justify-between w-full lg:flex-row h-3/5">
-            <div
-              className="flex justify-center w-full lg:self-start lg:w-4/12"
-              style={{
-                perspective: "300px",
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <div
-                className="shadow-2xl lg:w-5/6 rounded-xl bg-neutral-50 h-96"
-                style={{
-                  perspective: "300px",
-                  transformStyle: "preserve-3d",
-                  transform: isLaptop
-                    ? "rotateY(8deg) rotateX(-3deg)"
-                    : "rotateX(-3deg)",
-                }}
-              >
-                <div className="z-10 flex flex-col justify-between w-full p-2 space-y-2 font-mono text-sm leading-4 text-left h-96">
-                  <div className="flex w-full h-2 space-x-1">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  </div>
-                  <Image
-                    alt="Example product packshot"
-                    src="/packshot.png"
-                    className="z-10 object-contain h-full bg-gradient-to-b from-neutral-200 to-slate-400 rounded-xl"
-                    width={350}
-                    height={350}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center justify-start h-full lg:w-1/12">
-              <div className="absolute right-0 lds-ellipsis ">
-                <div className="bg-primary-500"></div>
-                <div className="bg-primary-500/75"></div>
-                <div className="bg-primary-500/50"></div>
-                <div className="bg-primary-500/25"></div>
-              </div>
-            </div>
-            <div className="relative flex items-center justify-center w-full h-56 lg:w-3/12">
-              <Image
-                alt="Laptop"
-                src="/laptop.png"
-                className="absolute object-contain w-56 h-56 p-2 rounded-full shadow-2xl bg-gradient-to-tl from-primary-500/30 via-secondary-500/30 to-tertiary-500/30"
-                width={373}
-                height={373}
-              />
-              <div className="-mt-1 inline-block absolute h-8 w-8 border-secondary-500 animate-[spin_2s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-              <div className="-mt-1 inline-block absolute h-12 w-12 border-tertiary-500 animate-[spin_2.5s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-              <div className="-mt-1 inline-block absolute h-16 w-16 border-primary-500 animate-[spin_3s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-            </div>
-            <div className="flex items-center justify-end h-full lg:w-1/12">
-              <div className="absolute right-0 lds-ellipsis ">
-                <div className="bg-primary-500"></div>
-                <div className="bg-primary-500/75"></div>
-                <div className="bg-primary-500/50"></div>
-                <div className="bg-primary-500/25"></div>
-              </div>
-            </div>
-            <div
-              className="flex justify-center w-full md:w-96 lg:self-end lg:w-4/12"
-              style={{
-                perspective: "300px",
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <div
-                className="shadow-2xl lg:w-5/6 rounded-xl bg-neutral-50 h-96"
-                style={{
-                  perspective: "300px",
-                  transformStyle: "preserve-3d",
-                  transform: isLaptop
-                    ? "rotateY(-8deg) rotateX(3deg)"
-                    : "rotateX(3deg)",
-                  userSelect: "none",
-                }}
-              >
-                <div className="z-10 flex flex-col justify-between w-full p-2 pb-2 space-y-2 font-mono text-sm leading-none text-left h-96 ">
-                  <div className="flex w-full h-2 space-x-1">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                  </div>
-                  <p className="relative w-full p-2 font-bold text-left border-b-2 rounded shadow bg-secondary-100 border-primary-500">
-                    Title:{" "}
-                    <span
-                      data-nosnippet
-                      className="font-mono text-xs font-normal"
-                    >
-                      Pure Elegance
-                    </span>
-                  </p>
-                  <p className="relative w-full p-2 font-bold text-left transition border-b-2 rounded shadow bg-secondary-100 border-primary-500">
-                    Short Desc:{" "}
-                    <span
-                      data-nosnippet
-                      className="font-mono text-xs font-normal"
-                    >
-                      Pure Elegance, the epitome of luxury and sophistication in
-                      a bottle.
-                    </span>
-                  </p>
-                  <p className="relative w-full p-2 font-bold text-left transition border-b-2 rounded shadow bg-secondary-100 border-primary-500">
-                    Full Desc:{" "}
-                    <span
-                      data-nosnippet
-                      className="font-mono text-xs font-normal"
-                    >
-                      Indulge in the ultimate experience of luxury and
-                      sophistication with Pure Elegance perfume. This exquisite
-                      fragrance is a masterpiece of carefully selected
-                      ingredients...
-                    </span>
-                  </p>
-                  <p className="relative w-full p-2 font-bold text-left transition border-b-2 rounded shadow bg-secondary-100 border-primary-500">
-                    Advices:{" "}
-                    <span
-                      data-nosnippet
-                      className="font-mono text-xs font-normal"
-                    >
-                      To make the most out of Pure Elegance, apply it to your
-                      pulse points, such as your wrists, neck, and behind your
-                      ears...
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <CustomButton title="Let's keep in touch" external />
+          <div className="flex flex-col items-center justify-center w-full my-8 space-y-2 lg:my-16">
+            <div className="flex justify-center space-x-12">
+              <DevicePhoneMobileIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
+              <DeviceTabletIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
+              <ComputerDesktopIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
+            </div>
+            <p className="text-xl tracking-wider lg:text-2xl text-tertiary-400">
+              Works from everywhere.
+            </p>
+          </div>
         </div>
 
         <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
@@ -200,6 +75,16 @@ const Home: NextPage = () => {
           id="next"
           className="flex flex-col justify-between w-full my-32 space-y-32 max-w-7xl items-around"
         >
+          <div>
+            <h3 className="text-4xl font-bold uppercase md:text-5xl">
+              <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-500 via-secondary-500 to-tertiary-500">
+                How to use
+              </span>
+            </h3>
+            <p className="text-2xl text-neutral-500">
+              Easy-to-use is our top priority.
+            </p>
+          </div>
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image

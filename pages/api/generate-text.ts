@@ -24,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
-    max_tokens: 150,
+    max_tokens: 300,
     stream: true,
     n: 1,
   };

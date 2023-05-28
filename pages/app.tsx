@@ -19,6 +19,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { VibeType } from "../components/DropDownText";
 import { ProductInfosGen } from "../components/ProductInfosGen";
 import { CustomButton } from "../components/CustomButton";
+import { resolve } from "path";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -33,34 +34,23 @@ const App: NextPage = () => {
   // Replicate
   const [originalPhoto, setOriginalPhoto] = useState<string | null>("null");
   const [imageCaption, setImageCaption] = useState<string | null>("null");
-  console.log("🚀 ~ file: dream.tsx:41 ~ imageCaption:", imageCaption);
   const [photoName, setPhotoName] = useState<string | null>(null);
   // OpenAI
   const [vibe, setVibe] = useState<VibeType>("Professional");
 
+  const [generatedProductInfos, setGeneratedProductInfos] = useState<
+    string | null
+  >(null);
   const [generatedTitle, setGeneratedTitle] = useState<string | null>(null);
-  const [generatedTitleDone, setGeneratedTitleDone] = useState<boolean>(false);
   const [generatedShortDesc, setGeneratedShortDesc] = useState<string | null>(
     null
   );
-  const [generatedShortDescDone, setGeneratedShortDescDone] =
-    useState<boolean>(false);
   const [generatedFullDesc, setGeneratedFullDesc] = useState<string | null>(
     null
   );
-  const [generatedFullDescDone, setGeneratedFullDescDone] =
-    useState<boolean>(false);
-
   const [generatedCaringAdvice, setGeneratedCaringAdvice] = useState<
     string | null
   >(null);
-  const [generatedCaringAdviceDone, setGeneratedCaringAdviceDone] =
-    useState<boolean>(false);
-
-  const titlePrompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${imageCaption}, generate a very short title (40 characters max) in a ${vibe} tone. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
-  const shortDescPrompt = `this is the title of a product I want to sell on my e-commerce website : ${generatedTitle}, generate a short description (between 150 and 200 characters) in a ${vibe} tone.`;
-  const fullDescPrompt = `this is the short description of a product I want to sell on my e-commerce website : ${generatedShortDesc}, generate a full description (between 400 and 600 characters) in a ${vibe} tone. Reformulate from the short description so it doesn't begin the same way.`;
-  const caringAdvicePrompt = `this is the full description of a product I want to sell on my e-commerce website : ${generatedFullDesc}, generate a few caring advices (between 200 and 400 characters) for ${generatedTitle} in a ${vibe} tone.`;
 
   // Replicate
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -126,13 +116,14 @@ const App: NextPage = () => {
       setError(response as any);
     } else {
       mutate();
-      const descriptions =
-        (JSON.parse(
-          localStorage.getItem("descriptions") || "[]"
-        ) as string[]) || [];
-      descriptions.push(response.id);
-      localStorage.setItem("descriptions", JSON.stringify(descriptions));
+      // const descriptions =
+      //   (JSON.parse(
+      //     localStorage.getItem("descriptions") || "[]"
+      //   ) as string[]) || [];
+      // descriptions.push(response.id);
+      // localStorage.setItem("descriptions", JSON.stringify(descriptions));
       setImageCaption(response.generated);
+      await generateText(response.generated);
     }
     setTimeout(() => {
       setLoading(false);
@@ -140,53 +131,42 @@ const App: NextPage = () => {
   }
 
   useEffect(() => {
+    if (generatedProductInfos) {
+      splitAndSetParts(generatedProductInfos);
+    }
+  }, [generatedProductInfos]);
+
+  useEffect(() => {
     if (imageCaption) {
-      generateText(titlePrompt, setGeneratedTitle, setGeneratedTitleDone);
+      if (imageCaption.length === 0) {
+        setOriginalPhoto(null);
+        setGeneratedProductInfos(null);
+      }
     }
   }, [imageCaption]);
-  useEffect(() => {
-    if (generatedTitleDone) {
-      generateText(
-        shortDescPrompt,
-        setGeneratedShortDesc,
-        setGeneratedShortDescDone
-      );
-    }
-  }, [generatedTitleDone]);
-  useEffect(() => {
-    if (generatedShortDescDone) {
-      generateText(
-        fullDescPrompt,
-        setGeneratedFullDesc,
-        setGeneratedFullDescDone
-      );
-    }
-  }, [generatedShortDescDone]);
-  useEffect(() => {
-    if (generatedFullDescDone) {
-      generateText(
-        caringAdvicePrompt,
-        setGeneratedCaringAdvice,
-        setGeneratedCaringAdviceDone
-      );
-    }
-  }, [generatedFullDescDone]);
+  console.log("🚀 ~ file: app.tsx:157 ~ imageCaption:", imageCaption);
 
   // OpenAI
   const bioRef = useRef<null | HTMLDivElement>(null);
 
-  const scrollToBios = () => {
+  const scrollToGen = () => {
     if (bioRef.current !== null) {
       bioRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const generateText = async (
-    prompt: string | null,
-    setElement: Function,
-    setElementDone: Function
-  ) => {
-    setElement("");
+  // Function to split the generated text and set the individual parts
+  const splitAndSetParts = (generatedText: string) => {
+    const parts = generatedText.split(" | ");
+    setGeneratedTitle(parts[0]);
+    setGeneratedShortDesc(parts[1]);
+    setGeneratedFullDesc(parts[2]);
+    setGeneratedCaringAdvice(parts[3]);
+  };
+
+  const generateText = async (res: string | null) => {
+    const prompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${res}, generate theses informations in that order : very short title (40 characters max), a mid-size description (200 characters max), a full description (600 characters max), some advices for the product (300 characters max). Be sure to separate the generated informations by a pipe symbol, it's capital for the app to work properly. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
+    setGeneratedProductInfos("");
     setLoading(true);
     const response = await fetch("/api/generate-text", {
       method: "POST",
@@ -216,13 +196,12 @@ const App: NextPage = () => {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setElement((prev: string) => prev + chunkValue);
+      setGeneratedProductInfos((prev) => prev + chunkValue);
     }
     if (done) {
-      setElementDone(true);
       console.log("Element done");
     }
-    scrollToBios();
+    scrollToGen();
     setLoading(false);
   };
 

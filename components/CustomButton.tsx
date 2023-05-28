@@ -11,7 +11,7 @@ type CTAButtonProps = {
 export const CustomButton = ({ title, external, action }: CTAButtonProps) => {
   return (
     <Link
-      href="#"
+      href={action ? "#" : "/"}
       onClick={action}
       className="self-center animate-border w-max inline-block mb-4 hover:shadow-xl hover:translate-x-2 rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
     >

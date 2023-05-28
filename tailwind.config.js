@@ -14,7 +14,7 @@ module.exports = {
         xs: "330px",
       },
       fontFamily: {
-        sans: ["Noto Sans", ...defaultTheme.fontFamily.sans],
+        sans: ["Outfit", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: {

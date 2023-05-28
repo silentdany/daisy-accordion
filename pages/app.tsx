@@ -76,6 +76,12 @@ const App: NextPage = () => {
         shade800: "#fff1", // File item background
         shade900: "#ffff", // Various (draggable crop buttons, etc.)
       },
+      fontFamilies: {
+        base: "Outfit,-apple-system, blinkmacsystemfont, Segoe UI, helvetica, arial, sans-serif",
+      },
+      fontSizes: {
+        base: 16,
+      },
     },
     onValidate: async (file: File): Promise<undefined | string> => {
       return data.remainingGenerations === 0

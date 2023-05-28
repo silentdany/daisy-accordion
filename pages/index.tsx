@@ -15,25 +15,7 @@ import {
   SparklesIcon,
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
-
-type CTAButtonProps = {
-  title: string;
-};
-
-const CTAButton = ({ title }: CTAButtonProps) => (
-  <Link
-    href="#"
-    className="self-center animate-border w-max inline-block mb-4 hover:shadow-xl hover:translate-x-2 rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
-  >
-    <span className="flex items-center justify-center px-6 py-3 text-xl font-medium rounded-full md:text-2xl bg-primary-50 text-neutral-900">
-      {/* Boost your{" "}
-              <span className="font-bold text-primary-500">product</span>
-              ivity */}
-      {title}{" "}
-      <ArrowTopRightOnSquareIcon className="inline-block w-6 h-6 ml-2 text-neutral-400" />
-    </span>
-  </Link>
-);
+import { CustomButton } from "../components/CustomButton";
 
 const Home: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 425px)");
@@ -207,7 +189,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div> */}
-          <CTAButton title="Let's keep in touch" />
+          <CustomButton title="Let's keep in touch" external />
         </div>
 
         <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
@@ -285,7 +267,7 @@ const Home: NextPage = () => {
               </p>
             </div>
           </div>
-          <CTAButton title="Keep me informed" />
+          <CustomButton title="Keep me informed" external />
         </div>
 
         <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
@@ -329,7 +311,7 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <CTAButton title="Ok, let me know" />
+          <CustomButton title="Ok, let me know" external />
         </div>
       </main>
       {/* <Testimonials /> */}

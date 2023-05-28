@@ -5,16 +5,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
-import { CompareSlider } from "../components/CompareSlider";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LoadingDots from "../components/LoadingDots";
 import ResizablePanel from "../components/ResizablePanel";
-import Toggle from "../components/Toggle";
-import appendNewToName from "../utils/appendNewToName";
-import downloadPhoto from "../utils/downloadPhoto";
-import DropDown from "../components/DropDown";
-import { roomType, rooms, themeType, themes } from "../utils/dropdownTypes";
 import { GenerateResponseData } from "./api/generate";
 import { useSession, signIn } from "next-auth/react";
 import useSWR from "swr";
@@ -23,7 +17,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
 import { VibeType } from "../components/DropDownText";
-import { json } from "stream/consumers";
+import { ProductInfosGen } from "../components/ProductInfosGen";
+import { CustomButton } from "../components/CustomButton";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -32,12 +27,12 @@ const uploader = Uploader({
     : "free",
 });
 
-const Home: NextPage = () => {
+const App: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   // Replicate
-  const [originalPhoto, setOriginalPhoto] = useState<string | null>(null);
-  const [imageCaption, setImageCaption] = useState<string | null>(null);
+  const [originalPhoto, setOriginalPhoto] = useState<string | null>("null");
+  const [imageCaption, setImageCaption] = useState<string | null>("null");
   console.log("🚀 ~ file: dream.tsx:41 ~ imageCaption:", imageCaption);
   const [photoName, setPhotoName] = useState<string | null>(null);
   // OpenAI
@@ -45,42 +40,22 @@ const Home: NextPage = () => {
 
   const [generatedTitle, setGeneratedTitle] = useState<string | null>(null);
   const [generatedTitleDone, setGeneratedTitleDone] = useState<boolean>(false);
-  console.log(
-    "🚀 ~ file: dream.tsx:53 ~ generatedTitleDone:",
-    generatedTitleDone
-  );
-  console.log("🚀 ~ file: dream.tsx:52 ~ generatedTitle:", generatedTitle);
   const [generatedShortDesc, setGeneratedShortDesc] = useState<string | null>(
     null
   );
   const [generatedShortDescDone, setGeneratedShortDescDone] =
     useState<boolean>(false);
-  console.log(
-    "🚀 ~ file: dream.tsx:59 ~ generatedShortDescDone:",
-    generatedShortDescDone
-  );
-  console.log(
-    "🚀 ~ file: dream.tsx:56 ~ generatedShortDesc:",
-    generatedShortDesc
-  );
   const [generatedFullDesc, setGeneratedFullDesc] = useState<string | null>(
     null
   );
   const [generatedFullDescDone, setGeneratedFullDescDone] =
     useState<boolean>(false);
-  console.log(
-    "🚀 ~ file: dream.tsx:60 ~ generatedFullDesc:",
-    generatedFullDesc
-  );
+
   const [generatedCaringAdvice, setGeneratedCaringAdvice] = useState<
     string | null
   >(null);
   const [generatedCaringAdviceDone, setGeneratedCaringAdviceDone] =
     useState<boolean>(false);
-  console.log(
-    "🚀 ~ file: dream.tsx:62 ~ generatedCaringAdvice:",
-    generatedCaringAdvice
-  );
 
   const titlePrompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${imageCaption}, generate a very short title (40 characters max) in a ${vibe} tone. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
   const shortDescPrompt = `this is the title of a product I want to sell on my e-commerce website : ${generatedTitle}, generate a short description (between 150 and 200 characters) in a ${vibe} tone.`;
@@ -99,12 +74,12 @@ const Home: NextPage = () => {
     tags: [data?.remainingGenerations > 3 ? "paid" : "free"],
     styles: {
       colors: {
-        primary: "#2563EB", // Primary buttons & links
+        primary: "#06b6d4", // Primary buttons & links
         error: "#d23f4d", // Error messages
-        shade100: "#fff", // Standard text
-        shade200: "#fffe", // Secondary button text
-        shade300: "#fffd", // Secondary button text (hover)
-        shade400: "#fffc", // Welcome text
+        shade100: "#0a0a0a", // Standard text
+        shade200: "#0a0a0a", // Secondary button text
+        shade300: "#262626", // Secondary button text (hover)
+        shade400: "#0a0a0a", // Welcome text
         shade500: "#fff9", // Modal close button
         shade600: "#fff7", // Border
         shade700: "#fff2", // Progress indicator background
@@ -260,43 +235,25 @@ const Home: NextPage = () => {
   }, [router.query.success]);
 
   return (
-    <div className="flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <div className="flex flex-col items-center justify-center max-w-6xl min-h-screen py-2 mx-auto">
       <Head>
-        <title>depikt</title>
+        <title>depikt App</title>
       </Head>
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
       />
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-4 sm:mb-0 mb-8">
-        {status === "authenticated" ? (
-          <Link
-            href="/buy-credits"
-            className="border border-gray-700 rounded-2xl py-2 px-4 text-gray-400 text-sm my-6 duration-300 ease-in-out hover:text-gray-300 hover:scale-105 transition"
-          >
-            Pricing is now available.{" "}
-            <span className="font-semibold text-gray-200">Click here</span> to
-            buy credits!
-          </Link>
-        ) : (
-          <a
-            href="https://twitter.com/nutlope/status/1635674124738523139?cxt=HHwWhsCz1ei8irMtAAAA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-gray-700 rounded-2xl py-2 px-4 text-gray-400 text-sm my-6 duration-300 ease-in-out hover:text-gray-300 transition"
-          >
-            Over{" "}
-            <span className="font-semibold text-gray-200">1 million users</span>{" "}
-            have used roomGPT so far
-          </a>
-        )}
-        <h1 className="mx-auto max-w-4xl font-display text-4xl font-bold tracking-normal text-neutral-100 sm:text-6xl mb-5">
-          Generate your <span className="text-primary-600">dream</span> room
+      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-4 mb-8 text-center sm:mb-0">
+        <h1 className="max-w-4xl mx-auto mb-4 text-6xl font-bold font-display">
+          Spare some <span className="text-primary-500">brain</span> time !
         </h1>
+        <h2 className="max-w-4xl mx-auto mb-8 text-4xl text-neutral-600 font-display">
+          Get your product informations now.
+        </h2>
         {status === "authenticated" && data && !imageCaption && (
-          <p className="text-gray-400">
+          <p className="text-neutral-500">
             You have{" "}
-            <span className="font-semibold text-gray-300">
+            <span className="font-semibold text-primary-500">
               {data.remainingGenerations}{" "}
               {data?.remainingGenerations > 1 ? "credits" : "credit"}
             </span>{" "}
@@ -306,7 +263,7 @@ const Home: NextPage = () => {
                 Buy more credits{" "}
                 <Link
                   href="/buy-credits"
-                  className="font-semibold text-gray-300 underline underline-offset-2 hover:text-gray-200 transition"
+                  className="font-semibold underline transition text-neutral-500 underline-offset-2 hover:text-neutral-400"
                 >
                   here
                 </Link>
@@ -317,7 +274,7 @@ const Home: NextPage = () => {
         )}
         <ResizablePanel>
           <AnimatePresence mode="wait">
-            <motion.div className="flex justify-between items-center w-full flex-col mt-4">
+            <motion.div className="flex flex-col items-center justify-between w-full mt-4">
               {status === "loading" ? (
                 <div className="max-w-[670px] h-[250px] flex justify-center items-center">
                   <Rings
@@ -333,18 +290,10 @@ const Home: NextPage = () => {
                 </div>
               ) : status === "authenticated" && !originalPhoto ? (
                 <>
-                  <div className="mt-4 w-full max-w-sm">
-                    <div className="flex mt-6 w-96 items-center space-x-3">
-                      <Image
-                        src="/number-3-white.svg"
-                        width={30}
-                        height={30}
-                        alt="1 icon"
-                      />
-                      <p className="text-left font-medium">
-                        Upload a picture of your room.
-                      </p>
-                    </div>
+                  <div className="w-full max-w-sm mt-16">
+                    <p className="font-medium text-center">
+                      Upload a picture of your product.
+                    </p>
                   </div>
                   <UploadDropZone />
                 </>
@@ -358,7 +307,7 @@ const Home: NextPage = () => {
                     </div>
                     <button
                       onClick={() => signIn("google")}
-                      className="bg-gray-200 text-black font-semibold py-3 px-6 rounded-2xl flex items-center space-x-2"
+                      className="flex items-center px-6 py-3 space-x-2 font-semibold text-black bg-gray-200 rounded-2xl"
                     >
                       <Image
                         src="/google.png"
@@ -383,7 +332,7 @@ const Home: NextPage = () => {
               {loading && (
                 <button
                   disabled
-                  className="bg-primary-500 rounded-full text-white font-medium px-4 pt-2 pb-3 mt-8 w-40"
+                  className="w-40 px-4 pt-2 pb-3 mt-8 font-medium text-white rounded-full bg-primary-500"
                 >
                   <span className="pt-4">
                     <LoadingDots color="white" style="large" />
@@ -395,110 +344,73 @@ const Home: NextPage = () => {
                   className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mt-8 max-w-[575px]"
                   role="alert"
                 >
-                  <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                  <div className="px-4 py-2 font-bold text-white bg-red-500 rounded-t">
                     Please try again later.
                   </div>
-                  <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                  <div className="px-4 py-3 text-red-700 bg-red-100 border border-t-0 border-red-400 rounded-b">
                     {error}
                   </div>
                 </div>
               )}
               {imageCaption && (
                 <>
+                  <div className="flex justify-center my-12 space-x-2">
+                    {originalPhoto && !loading && !error && (
+                      <CustomButton
+                        action={() => {
+                          setOriginalPhoto(null);
+                          setImageCaption(null);
+                          setPhotoName(null);
+                          setGeneratedTitle(null);
+                          setGeneratedShortDesc(null);
+                          setGeneratedFullDesc(null);
+                          setGeneratedCaringAdvice(null);
+                          setError(null);
+                        }}
+                        title="Generate New Description"
+                      />
+                    )}
+                  </div>
                   {/* <div>Generated caption : {imageCaption}</div> */}
-                  <div className="space-y-10 my-10">
+                  <div className="my-10 space-y-10 max-w-7xl">
                     {generatedTitle && (
                       <>
                         <div>
                           <h2
-                            className="sm:text-4xl text-3xl font-bold text-neutral-100 mx-auto"
+                            className="mx-auto text-3xl font-bold sm:text-4xl"
                             ref={bioRef}
                           >
-                            Your generated products infos
+                            Here are 3 sets to copy from.
                           </h2>
                         </div>
-                        <div className="space-y-8 flex flex-col items-center justify-center max-w-xl mx-auto text-neutral-900">
-                          <div
-                            className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                            onClick={() => {
-                              navigator.clipboard.writeText(generatedTitle);
-                              toast("Bio copied to clipboard", {
-                                icon: "✂️",
-                              });
-                            }}
-                          >
-                            <p>{generatedTitle}</p>
-                          </div>
-                          {generatedShortDesc && (
-                            <div
-                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                              onClick={() => {
-                                navigator.clipboard.writeText(
-                                  generatedShortDesc
-                                );
-                                toast("Bio copied to clipboard", {
-                                  icon: "✂️",
-                                });
-                              }}
-                            >
-                              <p>{generatedShortDesc}</p>
-                            </div>
-                          )}
-                          {generatedFullDesc && (
-                            <div
-                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                              onClick={() => {
-                                navigator.clipboard.writeText(
-                                  generatedFullDesc
-                                );
-                                toast("Bio copied to clipboard", {
-                                  icon: "✂️",
-                                });
-                              }}
-                            >
-                              <p>{generatedFullDesc}</p>
-                            </div>
-                          )}
-                          {generatedCaringAdvice && (
-                            <div
-                              className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
-                              onClick={() => {
-                                navigator.clipboard.writeText(
-                                  generatedCaringAdvice
-                                );
-                                toast("Bio copied to clipboard", {
-                                  icon: "✂️",
-                                });
-                              }}
-                            >
-                              <p>{generatedCaringAdvice}</p>
-                            </div>
-                          )}
+                        <div className="flex space-x-4">
+                          <ProductInfosGen
+                            generatedTitle={generatedTitle}
+                            generatedShortDesc={generatedShortDesc}
+                            generatedFullDesc={generatedFullDesc}
+                            generatedCaringAdvice={generatedCaringAdvice}
+                            color="primary"
+                          />
+                          <ProductInfosGen
+                            generatedTitle={generatedTitle}
+                            generatedShortDesc={generatedShortDesc}
+                            generatedFullDesc={generatedFullDesc}
+                            generatedCaringAdvice={generatedCaringAdvice}
+                            color="tertiary"
+                          />
+                          <ProductInfosGen
+                            generatedTitle={generatedTitle}
+                            generatedShortDesc={generatedShortDesc}
+                            generatedFullDesc={generatedFullDesc}
+                            generatedCaringAdvice={generatedCaringAdvice}
+                            color="secondary"
+                          />
                         </div>
                       </>
                     )}
                   </div>
                 </>
               )}
-              <div className="flex space-x-2 justify-center">
-                {originalPhoto && !loading && !error && (
-                  <button
-                    onClick={() => {
-                      setOriginalPhoto(null);
-                      setImageCaption(null);
-                      setPhotoName(null);
-                      setGeneratedTitle(null);
-                      setGeneratedShortDesc(null);
-                      setGeneratedFullDesc(null);
-                      setGeneratedCaringAdvice(null);
-                      setError(null);
-                    }}
-                    className="bg-primary-500 rounded-full text-white font-medium px-4 py-2 mt-8 hover:bg-primary-500/80 transition"
-                  >
-                    Generate New Description
-                  </button>
-                )}
-              </div>
             </motion.div>
           </AnimatePresence>
         </ResizablePanel>
@@ -509,4 +421,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default App;

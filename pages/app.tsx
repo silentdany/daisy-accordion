@@ -38,17 +38,43 @@ const App: NextPage = () => {
   // OpenAI
   const [vibe, setVibe] = useState<VibeType>("Professional");
 
-  const [generatedProductInfos, setGeneratedProductInfos] = useState<
+  const [generatedProductInfos1, setGeneratedProductInfos1] = useState<
     string | null
   >(null);
-  const [generatedTitle, setGeneratedTitle] = useState<string | null>(null);
-  const [generatedShortDesc, setGeneratedShortDesc] = useState<string | null>(
+  const [generatedProductInfos2, setGeneratedProductInfos2] = useState<
+    string | null
+  >(null);
+  const [generatedProductInfos3, setGeneratedProductInfos3] = useState<
+    string | null
+  >(null);
+  const [generatedTitle1, setGeneratedTitle1] = useState<string | null>(null);
+  const [generatedShortDesc1, setGeneratedShortDesc1] = useState<string | null>(
     null
   );
-  const [generatedFullDesc, setGeneratedFullDesc] = useState<string | null>(
+  const [generatedFullDesc1, setGeneratedFullDesc1] = useState<string | null>(
     null
   );
-  const [generatedCaringAdvice, setGeneratedCaringAdvice] = useState<
+  const [generatedCaringAdvice1, setGeneratedCaringAdvice1] = useState<
+    string | null
+  >(null);
+  const [generatedTitle2, setGeneratedTitle2] = useState<string | null>(null);
+  const [generatedShortDesc2, setGeneratedShortDesc2] = useState<string | null>(
+    null
+  );
+  const [generatedFullDesc2, setGeneratedFullDesc2] = useState<string | null>(
+    null
+  );
+  const [generatedCaringAdvice2, setGeneratedCaringAdvice2] = useState<
+    string | null
+  >(null);
+  const [generatedTitle3, setGeneratedTitle3] = useState<string | null>(null);
+  const [generatedShortDesc3, setGeneratedShortDesc3] = useState<string | null>(
+    null
+  );
+  const [generatedFullDesc3, setGeneratedFullDesc3] = useState<string | null>(
+    null
+  );
+  const [generatedCaringAdvice3, setGeneratedCaringAdvice3] = useState<
     string | null
   >(null);
 
@@ -129,7 +155,9 @@ const App: NextPage = () => {
       // descriptions.push(response.id);
       // localStorage.setItem("descriptions", JSON.stringify(descriptions));
       setImageCaption(response.generated);
-      await generateText(response.generated);
+      await generateText(response.generated, setGeneratedProductInfos1);
+      await generateText(response.generated, setGeneratedProductInfos2);
+      await generateText(response.generated, setGeneratedProductInfos3);
     }
     setTimeout(() => {
       setLoading(false);
@@ -137,16 +165,46 @@ const App: NextPage = () => {
   }
 
   useEffect(() => {
-    if (generatedProductInfos) {
-      splitAndSetParts(generatedProductInfos);
+    if (generatedProductInfos1) {
+      splitAndSetParts(
+        generatedProductInfos1,
+        setGeneratedTitle1,
+        setGeneratedShortDesc1,
+        setGeneratedFullDesc1,
+        setGeneratedCaringAdvice1
+      );
     }
-  }, [generatedProductInfos]);
+  }, [generatedProductInfos1]);
+  useEffect(() => {
+    if (generatedProductInfos2) {
+      splitAndSetParts(
+        generatedProductInfos2,
+        setGeneratedTitle2,
+        setGeneratedShortDesc2,
+        setGeneratedFullDesc2,
+        setGeneratedCaringAdvice2
+      );
+    }
+  }, [generatedProductInfos2]);
+  useEffect(() => {
+    if (generatedProductInfos3) {
+      splitAndSetParts(
+        generatedProductInfos3,
+        setGeneratedTitle3,
+        setGeneratedShortDesc3,
+        setGeneratedFullDesc3,
+        setGeneratedCaringAdvice3
+      );
+    }
+  }, [generatedProductInfos3]);
 
   useEffect(() => {
     if (imageCaption) {
       if (imageCaption.length === 0) {
         setOriginalPhoto(null);
-        setGeneratedProductInfos(null);
+        setGeneratedProductInfos1(null);
+        setGeneratedProductInfos2(null);
+        setGeneratedProductInfos3(null);
       }
     }
   }, [imageCaption]);
@@ -162,17 +220,23 @@ const App: NextPage = () => {
   };
 
   // Function to split the generated text and set the individual parts
-  const splitAndSetParts = (generatedText: string) => {
+  const splitAndSetParts = (
+    generatedText: string,
+    titleSetter: Function,
+    shortDescSetter: Function,
+    FullDescSetter: Function,
+    AdviceSetter: Function
+  ) => {
     const parts = generatedText.split(" | ");
-    setGeneratedTitle(parts[0]);
-    setGeneratedShortDesc(parts[1]);
-    setGeneratedFullDesc(parts[2]);
-    setGeneratedCaringAdvice(parts[3]);
+    titleSetter(parts[0]);
+    shortDescSetter(parts[1]);
+    FullDescSetter(parts[2]);
+    AdviceSetter(parts[3]);
   };
 
-  const generateText = async (res: string | null) => {
-    const prompt = `this is a generated caption of a product I want to sell on my e-commerce website : ${res}, generate theses informations in that order : very short title (40 characters max), a mid-size description (200 characters max), a full description (600 characters max), some advices for the product (300 characters max). Be sure to separate the generated informations by a pipe symbol, it's capital for the app to work properly. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
-    setGeneratedProductInfos("");
+  const generateText = async (res: string | null, setter: Function) => {
+    const prompt = `For now you will act as a e-shop copywriter. This is a generated caption of a product I want to sell on my e-commerce website : ${res}. I want you to generate informations for the product : a very short title (40 characters max), a mid-size description (200 characters max), a full description (600 characters max), some caring advices for the product (300 characters max). Absolutly generate informations in that precise order and clearly separated by a vertical bar (|), here is a short example : *title text* | *short description text* | *full description text* | *caring advices* . Do not add "Title", "Description" or anything else before actual title, descriptions or advices. Absolutly focus on the more important product in the caption (eg: in "a blanket on a chair" the blanket is more important because the chair is an accessory).`;
+    setter("");
     setLoading(true);
     const response = await fetch("/api/generate-text", {
       method: "POST",
@@ -202,7 +266,7 @@ const App: NextPage = () => {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setGeneratedProductInfos((prev) => prev + chunkValue);
+      setter((prev: string) => prev + chunkValue);
     }
     if (done) {
       console.log("Element done");
@@ -305,7 +369,7 @@ const App: NextPage = () => {
                   </div>
                 )
               )}
-              {originalPhoto && !imageCaption && (
+              {/* {originalPhoto && !imageCaption && (
                 <Image
                   alt="original photo"
                   src={originalPhoto}
@@ -313,16 +377,13 @@ const App: NextPage = () => {
                   width={475}
                   height={475}
                 />
-              )}
+              )} */}
               {loading && (
-                <button
-                  disabled
-                  className="w-40 px-4 pt-2 pb-3 mt-8 font-medium text-white rounded-full bg-primary-500"
-                >
-                  <span className="pt-4">
-                    <LoadingDots color="white" style="large" />
-                  </span>
-                </button>
+                <div className="relative flex items-center justify-center h-16 mt-16">
+                  <div className="-mt-1 inline-block absolute h-8 w-8 border-secondary-500 animate-[spin_2s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                  <div className="-mt-1 inline-block absolute h-12 w-12 border-tertiary-500 animate-[spin_2.5s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                  <div className="-mt-1 inline-block absolute h-16 w-16 border-primary-500 animate-[spin_3s_linear_infinite] rounded-full border-4 border-solid border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                </div>
               )}
               {error && (
                 <div
@@ -346,10 +407,18 @@ const App: NextPage = () => {
                           setOriginalPhoto(null);
                           setImageCaption(null);
                           setPhotoName(null);
-                          setGeneratedTitle(null);
-                          setGeneratedShortDesc(null);
-                          setGeneratedFullDesc(null);
-                          setGeneratedCaringAdvice(null);
+                          setGeneratedTitle1(null);
+                          setGeneratedShortDesc1(null);
+                          setGeneratedFullDesc1(null);
+                          setGeneratedCaringAdvice1(null);
+                          setGeneratedTitle2(null);
+                          setGeneratedShortDesc2(null);
+                          setGeneratedFullDesc2(null);
+                          setGeneratedCaringAdvice2(null);
+                          setGeneratedTitle3(null);
+                          setGeneratedShortDesc3(null);
+                          setGeneratedFullDesc3(null);
+                          setGeneratedCaringAdvice3(null);
                           setError(null);
                         }}
                         title="Generate New Description"
@@ -358,7 +427,7 @@ const App: NextPage = () => {
                   </div>
                   {/* <div>Generated caption : {imageCaption}</div> */}
                   <div className="my-10 space-y-10 max-w-7xl">
-                    {generatedTitle && (
+                    {generatedTitle1 && (
                       <>
                         <div>
                           <h2
@@ -370,24 +439,24 @@ const App: NextPage = () => {
                         </div>
                         <div className="flex space-x-4">
                           <ProductInfosGen
-                            generatedTitle={generatedTitle}
-                            generatedShortDesc={generatedShortDesc}
-                            generatedFullDesc={generatedFullDesc}
-                            generatedCaringAdvice={generatedCaringAdvice}
+                            generatedTitle={generatedTitle2}
+                            generatedShortDesc={generatedShortDesc2}
+                            generatedFullDesc={generatedFullDesc2}
+                            generatedCaringAdvice={generatedCaringAdvice2}
                             color="primary"
                           />
                           <ProductInfosGen
-                            generatedTitle={generatedTitle}
-                            generatedShortDesc={generatedShortDesc}
-                            generatedFullDesc={generatedFullDesc}
-                            generatedCaringAdvice={generatedCaringAdvice}
+                            generatedTitle={generatedTitle1}
+                            generatedShortDesc={generatedShortDesc1}
+                            generatedFullDesc={generatedFullDesc1}
+                            generatedCaringAdvice={generatedCaringAdvice1}
                             color="tertiary"
                           />
                           <ProductInfosGen
-                            generatedTitle={generatedTitle}
-                            generatedShortDesc={generatedShortDesc}
-                            generatedFullDesc={generatedFullDesc}
-                            generatedCaringAdvice={generatedCaringAdvice}
+                            generatedTitle={generatedTitle3}
+                            generatedShortDesc={generatedShortDesc3}
+                            generatedFullDesc={generatedFullDesc3}
+                            generatedCaringAdvice={generatedCaringAdvice3}
                             color="secondary"
                           />
                         </div>
@@ -399,7 +468,7 @@ const App: NextPage = () => {
             </motion.div>
           </AnimatePresence>
         </ResizablePanel>
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster position="bottom-center" reverseOrder={false} />
       </main>
       <Footer />
     </div>

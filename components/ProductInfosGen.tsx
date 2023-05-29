@@ -52,14 +52,14 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
 
   return (
     <div
-      className={`flex flex-col group items-center justify-start max-w-xl shadow text-neutral-900 ${bg20} rounded-2xl duration-200 ease-in hover:shadow-xl w-1/3 hover:w-2/3 h-full`}
+      className={`flex flex-col group items-center justify-start max-w-xl shadow text-neutral-900 ${bg20} rounded-2xl duration-200 ease-in hover:shadow-xl w-1/3 hover:w-2/3`}
     >
       <div className="flex items-center justify-start w-full h-8 pl-4 space-x-2 bg-neutral-900/5 rounded-t-2xl">
         <span className={`w-3 h-3 rounded-full ${bg50}`}></span>
         <span className={`w-3 h-3 rounded-full ${bg50}`}></span>
         <span className={`w-3 h-3 rounded-full ${bg50}`}></span>
       </div>
-      <div className="flex flex-col items-center justify-center p-4">
+      <div className="flex flex-col items-center justify-start w-full h-full p-4">
         <p className={`w-full text-xl font-bold text-left uppercase ${text}`}>
           Title
         </p>
@@ -69,7 +69,7 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
           <p
             onClick={() => {
               navigator.clipboard.writeText(generatedTitle);
-              toast("Bio copied to clipboard", {
+              toast("Title copied to clipboard", {
                 icon: "✂️",
               });
             }}
@@ -89,7 +89,7 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
             <p
               onClick={() => {
                 navigator.clipboard.writeText(generatedShortDesc);
-                toast("Bio copied to clipboard", {
+                toast("Short Description copied to clipboard", {
                   icon: "✂️",
                 });
               }}
@@ -110,7 +110,7 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
             <p
               onClick={() => {
                 navigator.clipboard.writeText(generatedFullDesc);
-                toast("Bio copied to clipboard", {
+                toast("Full Description copied to clipboard", {
                   icon: "✂️",
                 });
               }}
@@ -122,7 +122,7 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
         <p
           className={`w-full mt-4 text-xl font-bold text-left uppercase ${text}`}
         >
-          Advices
+          Caring Advices
         </p>
         <div
           className={`w-full p-4 line-clamp-6 group-hover:line-clamp-none  font-mono leading-4 text-left whitespace-pre-line transition border-l-4 shadow-md rounded-r-xl bg-neutral-100 ${border} hover:bg-neutral-200 cursor-copy`}
@@ -131,7 +131,7 @@ export const ProductInfosGen = (props: ProductInfosGenProps) => {
             <p
               onClick={() => {
                 navigator.clipboard.writeText(generatedCaringAdvice);
-                toast("Bio copied to clipboard", {
+                toast("Caring Advices copied to clipboard", {
                   icon: "✂️",
                 });
               }}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
+  ArrowLongDownIcon,
   ChatBubbleBottomCenterTextIcon,
   Cog6ToothIcon,
   ComputerDesktopIcon,
@@ -25,26 +26,26 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="flex flex-col items-end justify-end w-full h-screen px-4 pb-16 xl:-translate-y-10">
+        <div className="flex flex-col items-end justify-end w-full h-[calc(100vh-5rem)] px-4">
           <div
             className="flex flex-col items-end justify-center flex-1 w-full space-y-4"
             style={{
               backgroundImage: "url(/depikt.webp)",
               backgroundSize: "contain",
-              backgroundPosition: isMobile ? "center 75%" : "center 40%",
+              backgroundPosition: isMobile ? "center 80%" : "center 40%",
               backgroundRepeat: "no-repeat",
             }}
           >
             <div className="flex flex-col h-[10%] md:h-1/4"></div>
             <div className="flex flex-col flex-1 md:w-2/3">
-              <div className="flex items-center justify-center">
+              <div className="z-10 flex items-center justify-center backdrop-blur-sm rounded-t-2xl">
                 <h1 className="text-2xl font-bold tracking-normal md:text-4xl font-display lg:text-5xl xl:text-6xl">
                   <em className="not-italic text-primary-500">1-click</em>
                   <br />
                   Optimized Product Infos.
                 </h1>
               </div>
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center backdrop-blur-sm rounded-b-2xl">
                 <h2 className="text-lg md:text-2xl text-neutral-700">
                   Generate all your e-shop product information from its
                   pictures.
@@ -61,19 +62,20 @@ const Home: NextPage = () => {
               <DeviceTabletIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
               <ComputerDesktopIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
             </div>
-            <p className="text-xl tracking-wider lg:text-2xl text-tertiary-400">
+            <p className="text-lg tracking-wider md:text-xl lg:text-2xl text-tertiary-400">
               Works from everywhere.
             </p>
           </div>
+          <ArrowLongDownIcon className="self-center w-8 h-8 mb-4 text-center animate-bounce-slow" />
         </div>
 
-        <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
+        {/* <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
-        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span> */}
 
         <div
           id="next"
-          className="flex flex-col justify-between w-full my-32 space-y-32 max-w-7xl items-around"
+          className="flex flex-col justify-between w-full mt-16 mb-32 space-y-32 max-w-7xl items-around"
         >
           <div>
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
@@ -88,11 +90,13 @@ const Home: NextPage = () => {
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
-                alt="Original photo of a room"
-                src="/1.jpg"
+                alt="Upload a photo"
+                src="/step1.png"
                 className="object-cover w-full rounded-md shadow-xl h-80"
-                width={400}
-                height={400}
+                width={600}
+                height={300}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, 600px"
               />
             </div>
             <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">
@@ -121,22 +125,26 @@ const Home: NextPage = () => {
             </div>
             <div className="inline-block p-2 mt-8 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-tl from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
-                alt="Original photo of a room"
-                src="/1-new.jpg"
+                alt="Loading screen"
+                src="/step2.png"
                 className="object-cover w-full rounded-md shadow-xl h-80"
-                width={400}
-                height={400}
+                width={600}
+                height={300}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, 600px"
               />
             </div>
           </div>
           <div className="flex flex-col lg:flex-row lg:space-x-4">
             <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
               <Image
-                alt="Original photo of a room"
-                src="/1.jpg"
+                alt="Results"
+                src="/step3.png"
                 className="object-cover w-full rounded-md shadow-xl h-80"
-                width={400}
-                height={400}
+                width={600}
+                height={300}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, 600px"
               />
             </div>
             <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">

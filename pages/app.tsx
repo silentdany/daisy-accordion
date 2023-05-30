@@ -17,6 +17,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { VibeType } from "../components/DropDownText";
 import { ProductInfosGen } from "../components/ProductInfosGen";
 import { CustomButton } from "../components/CustomButton";
+import ResizablePanel from "../components/ResizablePanel";
 
 // Configuration for the uploader
 const uploader = Uploader({

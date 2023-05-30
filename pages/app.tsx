@@ -439,7 +439,7 @@ const App: NextPage = () => {
                         </div>
                         <div className="flex space-x-4">
                           <ProductInfosGen
-                            generatedTitle={generatedTitle2}
+                            generatedTitle={generatedTitle2 || ''}
                             generatedShortDesc={generatedShortDesc2}
                             generatedFullDesc={generatedFullDesc2}
                             generatedCaringAdvice={generatedCaringAdvice2}
@@ -453,7 +453,7 @@ const App: NextPage = () => {
                             color="tertiary"
                           />
                           <ProductInfosGen
-                            generatedTitle={generatedTitle3}
+                            generatedTitle={generatedTitle3 || ''}
                             generatedShortDesc={generatedShortDesc3}
                             generatedFullDesc={generatedFullDesc3}
                             generatedCaringAdvice={generatedCaringAdvice3}

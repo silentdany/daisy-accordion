@@ -87,19 +87,19 @@ const Home: NextPage = () => {
               Easy-to-use is our top priority.
             </p>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+          <div className="flex flex-col lg:flex-row">
+            <div className="flex order-last lg:w-1/2 justify-center lg:justify-end">
               <Image
                 alt="Upload a photo"
-                src="/step1.png"
-                className="object-cover w-full rounded-md shadow-xl h-80"
-                width={600}
-                height={300}
+                src="/step1.svg"
+                className="h-60 w-60 md:h-80 md:w-80 mt-4 lg:mt-0"
+                width={80}
+                height={80}
                 quality={100}
-                sizes="(max-width: 768px) 100vw, 600px"
-              />
-            </div>
-            <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">
+                sizes="80px"
+                />
+                </div>
+            <div className="flex flex-col justify-center text-left  lg:pl-8">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 1
               </p>
@@ -111,7 +111,7 @@ const Home: NextPage = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-4">
+          <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col justify-center pr-8 text-left lg:w-1/2 lg:text-right">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 2
@@ -122,32 +122,29 @@ const Home: NextPage = () => {
               <p className="text-xl md:text-2xl lg:pl-28 text-neutral-500">
                 Wait for the magic to happen !
               </p>
-            </div>
-            <div className="inline-block p-2 mt-8 duration-100 bg-white rounded-md shadow-sm lg:w-1/2 bg-gradient-to-tl from-primary-500 via-secondary-500 to-tertiary-500">
+            </div><div className="flex lg:w-1/2 justify-center lg:justify-start">
               <Image
                 alt="Loading screen"
-                src="/step2.png"
-                className="object-cover w-full rounded-md shadow-xl h-80"
-                width={600}
-                height={300}
+                src="/step2.svg"
+                className="h-60 w-60 md:h-80 md:w-80"
+                width={80}
+                height={80}
                 quality={100}
-                sizes="(max-width: 768px) 100vw, 600px"
-              />
-            </div>
+                sizes="80px"
+                /></div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:space-x-4">
-            <div className="order-last inline-block p-2 duration-100 bg-white rounded-md shadow-sm lg:order-none lg:w-1/2 bg-gradient-to-br from-primary-500 via-secondary-500 to-tertiary-500">
+          <div className="flex flex-col lg:flex-row">
+          <div className="flex order-last lg:w-1/2 justify-center lg:justify-end">
               <Image
                 alt="Results"
-                src="/step3.png"
-                className="object-cover w-full rounded-md shadow-xl h-80"
-                width={600}
-                height={300}
+                src="/step3.svg"
+                className="h-60 w-60 md:h-80 md:w-80"
+                width={80}
+                height={80}
                 quality={100}
-                sizes="(max-width: 768px) 100vw, 600px"
-              />
-            </div>
-            <div className="flex flex-col justify-center mb-8 text-left lg:w-1/2 lg:pl-8 lg:mt-0">
+                sizes="80px"
+              /></div>
+            <div className="flex flex-col justify-center text-left lg:w-1/2 lg:pl-8">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 3
               </p>

@@ -7,8 +7,6 @@ import { UploadDropzone } from "react-uploader";
 import { Uploader } from "uploader";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import LoadingDots from "../components/LoadingDots";
-import ResizablePanel from "../components/ResizablePanel";
 import { GenerateResponseData } from "./api/generate";
 import { useSession, signIn } from "next-auth/react";
 import useSWR from "swr";
@@ -19,7 +17,6 @@ import { Toaster, toast } from "react-hot-toast";
 import { VibeType } from "../components/DropDownText";
 import { ProductInfosGen } from "../components/ProductInfosGen";
 import { CustomButton } from "../components/CustomButton";
-import { resolve } from "path";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -439,7 +436,7 @@ const App: NextPage = () => {
                         </div>
                         <div className="flex space-x-4">
                           <ProductInfosGen
-                            generatedTitle={generatedTitle2 || ''}
+                            generatedTitle={generatedTitle2 || ""}
                             generatedShortDesc={generatedShortDesc2}
                             generatedFullDesc={generatedFullDesc2}
                             generatedCaringAdvice={generatedCaringAdvice2}
@@ -453,7 +450,7 @@ const App: NextPage = () => {
                             color="tertiary"
                           />
                           <ProductInfosGen
-                            generatedTitle={generatedTitle3 || ''}
+                            generatedTitle={generatedTitle3 || ""}
                             generatedShortDesc={generatedShortDesc3}
                             generatedFullDesc={generatedFullDesc3}
                             generatedCaringAdvice={generatedCaringAdvice3}

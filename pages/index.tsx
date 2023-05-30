@@ -14,9 +14,20 @@ import {
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CustomButton } from "../components/CustomButton";
+import createContact from "./api/create-contact";
+import { useState } from "react";
 
 const Home: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 425px)");
+
+  const [contactForm, setContactForm] = useState({
+    email: "",
+  });
+
+  async function handleOnClick() {
+    let response = await createContact(contactForm);
+    console.log(response);
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-auto max-w-7xl">
@@ -55,7 +66,24 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <CustomButton title="Let's keep in touch" external />
+          {/* <CustomButton title="Let's keep in touch" external /> */}
+          <div className="w-full mt-8">
+            <input
+              type="text"
+              value={contactForm.email}
+              placeholder="Your email"
+              className="p-2 text-center border-2 rounded-l-full outline-none border-primary-500 focus:border-primary-500"
+              onChange={(e) =>
+                setContactForm({ ...contactForm, email: e.target.value })
+              }
+            />
+            <button
+              onClick={handleOnClick}
+              className="p-2 pr-4 text-center border-2 border-l-0 rounded-r-full outline-none bg-primary-500/50 hover:bg-secondary-500/50 border-primary-500"
+            >
+              Join
+            </button>
+          </div>
           <div className="flex flex-col items-center justify-center w-full my-8 space-y-2 lg:my-16">
             <div className="flex justify-center space-x-12">
               <DevicePhoneMobileIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />

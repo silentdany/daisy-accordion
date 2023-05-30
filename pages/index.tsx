@@ -88,18 +88,18 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div className="flex flex-col lg:flex-row">
-            <div className="flex order-last lg:w-1/2 justify-center lg:justify-end">
+            <div className="flex justify-center order-last lg:order-none lg:w-1/2 lg:justify-end">
               <Image
                 alt="Upload a photo"
                 src="/step1.svg"
-                className="h-60 w-60 md:h-80 md:w-80 mt-4 lg:mt-0"
+                className="mt-4 h-60 w-60 md:h-80 md:w-80 lg:mt-0"
                 width={80}
                 height={80}
                 quality={100}
                 sizes="80px"
-                />
-                </div>
-            <div className="flex flex-col justify-center text-left  lg:pl-8">
+              />
+            </div>
+            <div className="flex flex-col justify-center text-left lg:pl-8">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 1
               </p>
@@ -122,7 +122,8 @@ const Home: NextPage = () => {
               <p className="text-xl md:text-2xl lg:pl-28 text-neutral-500">
                 Wait for the magic to happen !
               </p>
-            </div><div className="flex lg:w-1/2 justify-center lg:justify-start">
+            </div>
+            <div className="flex justify-center lg:w-1/2 lg:justify-start">
               <Image
                 alt="Loading screen"
                 src="/step2.svg"
@@ -131,10 +132,11 @@ const Home: NextPage = () => {
                 height={80}
                 quality={100}
                 sizes="80px"
-                /></div>
+              />
+            </div>
           </div>
           <div className="flex flex-col lg:flex-row">
-          <div className="flex order-last lg:w-1/2 justify-center lg:justify-end">
+            <div className="flex justify-center order-last lg:order-none lg:w-1/2 lg:justify-end">
               <Image
                 alt="Results"
                 src="/step3.svg"
@@ -143,7 +145,8 @@ const Home: NextPage = () => {
                 height={80}
                 quality={100}
                 sizes="80px"
-              /></div>
+              />
+            </div>
             <div className="flex flex-col justify-center text-left lg:w-1/2 lg:pl-8">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 3

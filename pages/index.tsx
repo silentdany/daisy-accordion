@@ -20,6 +20,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Toaster, toast } from "react-hot-toast";
+import { One } from "../components/blobs/One";
+import { Two } from "../components/blobs/Two";
+import { Three } from "../components/blobs/Three";
 
 type FormData = yup.InferType<typeof schema>;
 
@@ -154,7 +157,8 @@ const Home: NextPage = () => {
               Easy-to-use is our top priority.
             </p>
           </div>
-          <div className="flex flex-col lg:flex-row">
+          <div className="relative flex flex-col lg:flex-row">
+            <One />
             <div className="flex justify-center order-last lg:order-none lg:w-1/2 lg:justify-end">
               <Image
                 alt="Upload a photo"
@@ -178,7 +182,8 @@ const Home: NextPage = () => {
               </p>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row">
+          <div className="relative flex flex-col lg:flex-row">
+            <Two />
             <div className="flex flex-col justify-center pr-8 text-left lg:w-1/2 lg:text-right">
               <p className="text-3xl font-bold md:text-4xl text-primary-500">
                 Step 2
@@ -202,7 +207,8 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row">
+          <div className="relative flex flex-col lg:flex-row">
+            <Three />
             <div className="flex justify-center order-last lg:order-none lg:w-1/2 lg:justify-end">
               <Image
                 alt="Results"

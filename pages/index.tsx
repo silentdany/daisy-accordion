@@ -19,7 +19,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 type FormData = yup.InferType<typeof schema>;
 
@@ -47,13 +47,23 @@ const Home: NextPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FormData) =>
-    await fetch("/api/brevo", {
+  const onSubmit = async (data: FormData) => {
+    const response = await fetch("/api/brevo", {
       method: "POST",
       body: JSON.stringify({ email: data.email }),
-    })
-      .then((res) => res.json())
-      .catch((err) => toast.error(err.message));
+    });
+    if (response.ok) {
+      const data = await response.json();
+      toast("Thanks for your interest !", {
+        icon: "✔️",
+      });
+    } else {
+      const errorData = await response.json();
+      toast(errorData.response.body.message, {
+        icon: "❌",
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-auto max-w-7xl">
@@ -95,7 +105,7 @@ const Home: NextPage = () => {
           {/* <CustomButton title="Let's keep in touch" external /> */}
           <form
             key={1}
-            className="relative inline-block self-center w-max animate-border mb-4 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            className="relative mt-2 inline-block self-center w-max animate-border mb-4 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
             onSubmit={handleSubmit(onSubmit)}
           >
             <input
@@ -110,7 +120,7 @@ const Home: NextPage = () => {
               Stay in touch
             </button>
             <p className="absolute w-full text-center -bottom-6 text-danger/75">
-              {errors.email?.message}
+              {errors.email && "Invalid format."}
             </p>
           </form>
           <div className="flex flex-col items-center justify-center w-full my-8 space-y-2">
@@ -278,13 +288,18 @@ const Home: NextPage = () => {
               Stay in touch
             </button>
             <p className="absolute w-full text-center -bottom-6 text-danger/75">
-              {errors2.email?.message}
+              {errors2.email && "Invalid format."}
             </p>
           </form>
         </div>
       </main>
       {/* <Testimonials /> */}
       <Footer />
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 5000 }}
+      />
     </div>
   );
 };

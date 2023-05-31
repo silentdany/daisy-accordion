@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CustomButton } from "../components/CustomButton";
-import createContact from "./api/create-contact";
+// import createContact from "./api/create-contact";
 import { useState } from "react";
 
 const Home: NextPage = () => {
@@ -25,8 +25,10 @@ const Home: NextPage = () => {
   });
 
   async function handleOnClick() {
-    let response = await createContact(contactForm);
-    console.log(response);
+    await fetch("/api/brevo", {
+      method: "POST",
+      body: JSON.stringify({ email: "test4@test.com" }),
+    });
   }
 
   return (

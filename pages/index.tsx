@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
   ArrowLongDownIcon,
+  ArrowRightIcon,
   ChatBubbleBottomCenterTextIcon,
   Cog6ToothIcon,
   ComputerDesktopIcon,
@@ -14,22 +15,45 @@ import {
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CustomButton } from "../components/CustomButton";
-// import createContact from "./api/create-contact";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { toast } from "react-hot-toast";
+
+type FormData = yup.InferType<typeof schema>;
+
+const schema = yup
+  .object({
+    email: yup.string().email().required(),
+  })
+  .required();
 
 const Home: NextPage = () => {
   const isMobile = useMediaQuery("(max-width: 425px)");
 
-  const [contactForm, setContactForm] = useState({
-    email: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
   });
 
-  async function handleOnClick() {
+  const onSubmit = async (data: FormData) =>
     await fetch("/api/brevo", {
       method: "POST",
-      body: JSON.stringify({ email: "test4@test.com" }),
-    });
-  }
+      body: JSON.stringify({ email: data.email }),
+    })
+      .then((res) => res.json())
+      .catch((err) => toast.error(err.message));
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 mx-auto max-w-7xl">
@@ -51,14 +75,14 @@ const Home: NextPage = () => {
           >
             <div className="flex flex-col h-[10%] md:h-1/4"></div>
             <div className="flex flex-col flex-1 md:w-2/3">
-              <div className="z-10 flex items-center justify-center backdrop-blur-sm rounded-t-2xl">
+              <div className="z-10 flex items-center justify-center rounded-t-2xl">
                 <h1 className="text-2xl font-bold tracking-normal md:text-4xl font-display lg:text-5xl xl:text-6xl">
                   <em className="not-italic text-primary-500">1-click</em>
                   <br />
                   Optimized Product Infos.
                 </h1>
               </div>
-              <div className="flex items-center justify-center backdrop-blur-sm rounded-b-2xl">
+              <div className="flex items-center justify-center rounded-b-2xl">
                 <h2 className="text-lg md:text-2xl text-neutral-700">
                   Generate all your e-shop product information from its
                   pictures.
@@ -69,24 +93,27 @@ const Home: NextPage = () => {
             </div>
           </div>
           {/* <CustomButton title="Let's keep in touch" external /> */}
-          <div className="w-full mt-8">
+          <form
+            key={1}
+            className="relative inline-block self-center w-max animate-border mb-4 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <input
-              type="text"
-              value={contactForm.email}
               placeholder="Your email"
-              className="p-2 text-center border-2 rounded-l-full outline-none border-primary-500 focus:border-primary-500"
-              onChange={(e) =>
-                setContactForm({ ...contactForm, email: e.target.value })
-              }
+              className="w-32 p-1 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
+              {...register("email")}
             />
             <button
-              onClick={handleOnClick}
-              className="p-2 pr-4 text-center border-2 border-l-0 rounded-r-full outline-none bg-primary-500/50 hover:bg-secondary-500/50 border-primary-500"
+              type="submit"
+              className="p-1 pr-4 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
             >
-              Join
+              Stay in touch
             </button>
-          </div>
-          <div className="flex flex-col items-center justify-center w-full my-8 space-y-2 lg:my-16">
+            <p className="absolute w-full text-center -bottom-6 text-danger/75">
+              {errors.email?.message}
+            </p>
+          </form>
+          <div className="flex flex-col items-center justify-center w-full my-8 space-y-2">
             <div className="flex justify-center space-x-12">
               <DevicePhoneMobileIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
               <DeviceTabletIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
@@ -190,7 +217,6 @@ const Home: NextPage = () => {
               </p>
             </div>
           </div>
-          <CustomButton title="Keep me informed" external />
         </div>
 
         <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
@@ -234,7 +260,27 @@ const Home: NextPage = () => {
               </div>
             </div>
           </div>
-          <CustomButton title="Ok, let me know" external />
+          {/* <CustomButton title="Ok, let me know" external /> */}
+          <form
+            key={2}
+            className="relative inline-block self-center w-max animate-border hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            onSubmit={handleSubmit2(onSubmit)}
+          >
+            <input
+              placeholder="Your email"
+              className="w-32 p-1 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
+              {...register2("email")}
+            />
+            <button
+              type="submit"
+              className="p-1 pr-4 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
+            >
+              Stay in touch
+            </button>
+            <p className="absolute w-full text-center -bottom-6 text-danger/75">
+              {errors2.email?.message}
+            </p>
+          </form>
         </div>
       </main>
       {/* <Testimonials /> */}

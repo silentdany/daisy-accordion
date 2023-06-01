@@ -5,22 +5,15 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
   ArrowLongDownIcon,
-  ArrowRightIcon,
-  ChatBubbleBottomCenterTextIcon,
-  ClipboardDocumentIcon,
   ClipboardDocumentListIcon,
-  Cog6ToothIcon,
   ComputerDesktopIcon,
   DevicePhoneMobileIcon,
   DeviceTabletIcon,
   LightBulbIcon,
-  RocketLaunchIcon,
   UserGroupIcon,
-  UserIcon,
 } from "@heroicons/react/20/solid";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { CustomButton } from "../components/CustomButton";
-import { useState } from "react";
+// import { CustomButton } from "../components/CustomButton";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -39,8 +32,6 @@ const schema = yup
   .required();
 
 const Home: NextPage = () => {
-  const isMobile = useMediaQuery("(max-width: 425px)");
-
   const {
     register,
     handleSubmit,
@@ -81,13 +72,13 @@ const Home: NextPage = () => {
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="hero relative min-h-[calc(100vh-8rem)] ">
+        <div className="hero relative min-h-[calc(100vh-8rem)]">
           <div className="hero-content h-full flex-col lg:flex-row gap-16">
             <div className="h-1/2 lg:h-full flex items-center justify-center">
               <Image
                 src="/hero.png"
                 alt="depikt app"
-                className="rounded-lg shadow-2xl lg:w-full "
+                className="rounded-lg shadow-2xl lg:w-full"
                 width={350}
                 height={500}
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -108,7 +99,7 @@ const Home: NextPage = () => {
               </h2>
               <form
                 key={1}
-                className="relative inline-block self-center w-max animate-border m-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+                className="relative inline-block self-center w-max animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <input
@@ -200,7 +191,7 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
         <div className="flex flex-col justify-between w-full  mb-32 space-y-8 max-w-2xl items-around">
-          <div className="m-16">
+          <div className="my-16">
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-500 via-secondary-500 to-tertiary-500">
                 How to use
@@ -293,18 +284,22 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
-        <div className="flex flex-col items-center justify-between w-full my-32 space-y-32 lg:px-4 max-w-7xl">
-          <div>
-            <h3 className="text-4xl font-bold uppercase md:text-5xl">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
-                What's next ?
-              </span>
-            </h3>
-            <p className="text-2xl text-neutral-500">
-              We have some more ideas coming...
-            </p>
-          </div>
-          <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
+        <div className="relative bg-neutral-50 text-left p-4 rounded-2xl w-full mt-16 mb-32 max-w-5xl space-y-12 flex flex-col items-center">
+          <h3 className="text-4xl font-bold uppercase md:text-5xl self-start">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
+              What's next ?
+            </span>
+          </h3>
+          <p className="text-2xl text-neutral-500">
+            We have some more ideas coming...
+          </p>
+          <ul className="steps steps-vertical lg:steps-horizontal ">
+            <li className="step">Fine-tuning</li>
+            <li className="step">Batch Gen</li>
+            <li className="step">Plugins & Apps</li>
+            <li className="step">Pro Pictures</li>
+          </ul>
+          {/* <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
             <div className="relative z-20 flex flex-col items-center justify-center py-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-primary-500 text-neutral-50">
               <ChatBubbleBottomCenterTextIcon className="w-20 h-20 mb-2" />
               <div className="flex items-center px-12">
@@ -329,11 +324,11 @@ const Home: NextPage = () => {
                 <div className="absolute left-0 w-full h-10 lg:left-auto bg-tertiary-500 lg:top-0 lg:w-10 lg:h-48 rounded-2xl -bottom-4 lg:-right-4"></div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* <CustomButton title="Ok, let me know" external /> */}
           <form
             key={2}
-            className="relative inline-block self-center w-max animate-border hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            className="relative !mb-8 inline-block self-center w-max animate-border hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
             onSubmit={handleSubmit2(onSubmit)}
           >
             <input

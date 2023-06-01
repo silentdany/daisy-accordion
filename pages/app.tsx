@@ -14,7 +14,6 @@ import { Rings } from "react-loader-spinner";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
-import { VibeType } from "../components/DropDownText";
 import { ProductInfosGen } from "../components/ProductInfosGen";
 import { CustomButton } from "../components/CustomButton";
 import ResizablePanel from "../components/ResizablePanel";
@@ -34,7 +33,6 @@ const App: NextPage = () => {
   const [imageCaption, setImageCaption] = useState<string | null>("null");
   const [photoName, setPhotoName] = useState<string | null>(null);
   // OpenAI
-  const [vibe, setVibe] = useState<VibeType>("Professional");
 
   const [generatedProductInfos1, setGeneratedProductInfos1] = useState<
     string | null

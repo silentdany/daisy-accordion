@@ -77,5 +77,18 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@headlessui/tailwindcss")],
+  plugins: [require("@tailwindcss/forms"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        depikt: {
+          primary: colors.cyan[500],
+          secondary: colors.blue[500],
+          accent: colors.cyan[700],
+          neutral: colors.neutral[500],
+          "base-100": colors.neutral[50],
+        },
+      },
+    ],
+  },
 };

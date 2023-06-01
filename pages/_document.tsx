@@ -9,7 +9,7 @@ class MyDocument extends Document {
     let title = "Product sheet generator";
 
     return (
-      <Html lang="en" className="scroll-smooth">
+      <Html lang="en" className="scroll-smooth" data-theme="depikt">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <meta name="description" content={description} />
@@ -22,7 +22,7 @@ class MyDocument extends Document {
           <meta property="og:image" content={ogimage} />
           <meta name="twitter:image" content={ogimage} />
         </Head>
-        <body className="bg-fixed bg-neutral-50 text-neutral-700 bg-gradient-to-tl from-primary-500/20 via-secondary-500/20 to-tertiary-500/20">
+        <body className="bg-fixed bg-neutral-50 bg-gradient-to-tl from-primary-500/20 via-secondary-500/20 to-tertiary-500/20">
           <Main />
           <NextScript />
         </body>

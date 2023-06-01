@@ -6,7 +6,7 @@ export const Three = () => {
       id="sw-js-blob-svg"
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      className="absolute left-0 scale-75 rotate-90 opacity-25 top-1/4 md:top-0 md:h-full lg:scale-150 md:w-full -z-10"
+      className="absolute left-0 scale-75 md:scale-125 opacity-25 -z-10"
     >
       <defs>
         {" "}

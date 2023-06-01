@@ -5,7 +5,6 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import prisma from "../lib/prismadb";
 import { Description } from "@prisma/client";
-import { RoomGeneration } from "../components/RoomGenerator";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 

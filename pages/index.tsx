@@ -22,6 +22,7 @@ import { One } from "../components/blobs/One";
 import { Two } from "../components/blobs/Two";
 import { Three } from "../components/blobs/Three";
 import Link from "next/link";
+import ReactPlayer from "react-player";
 
 type FormData = yup.InferType<typeof schema>;
 
@@ -32,6 +33,32 @@ const schema = yup
   .required();
 
 const Home: NextPage = () => {
+  const isTabletOnly = useMediaQuery(
+    "only screen and (min-width: 768px) and (max-width: 1024px)"
+  );
+  const isMobile = useMediaQuery("only screen and (max-width: 767px)");
+  const isFuckingFold = useMediaQuery("only screen and (max-width: 280px)");
+  let videoWidth;
+  let videoHeight;
+  switch (true) {
+    case isFuckingFold:
+      videoWidth = 260;
+      videoHeight = 200;
+      break;
+    case isTabletOnly:
+      videoWidth = 600;
+      videoHeight = 350;
+      break;
+    case isMobile:
+      videoWidth = 260;
+      videoHeight = 260;
+      break;
+    default:
+      videoWidth = 350;
+      videoHeight = 350;
+      break;
+  }
+
   const {
     register,
     handleSubmit,
@@ -73,20 +100,29 @@ const Home: NextPage = () => {
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
         <div className="hero relative min-h-[calc(100vh-8rem)]">
-          <div className="hero-content h-full flex-col lg:flex-row gap-16">
-            <div className="h-1/2 lg:h-full flex items-center justify-center">
-              <Image
-                src="/hero.png"
-                alt="depikt app"
-                className="rounded-lg shadow-2xl lg:w-full"
-                width={350}
-                height={500}
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
+          <div className="flex-col h-full gap-16 hero-content lg:flex-row">
+            <div className="flex items-center justify-center h-1/2 lg:h-full">
+              <div
+                className={`flex p-4 shadow-2x lg:max-w-sm bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
+                  isFuckingFold ? "w-56" : ""
+                }`}
+              >
+                <ReactPlayer
+                  url={
+                    isTabletOnly
+                      ? "/depikt_landscape.webm"
+                      : "/depikt_square.webm"
+                  }
+                  playing
+                  loop
+                  width={videoWidth}
+                  height={videoHeight}
+                />
+              </div>
             </div>
             <div className="w-full lg:w-1/2">
               <h1 className="text-5xl">
-                <em className="not-italic text-primary-500 font-bold">
+                <em className="not-italic font-bold text-primary-500">
                   1-click
                 </em>
                 <br />
@@ -104,14 +140,14 @@ const Home: NextPage = () => {
               >
                 <input
                   placeholder="Your email"
-                  className="w-32 p-1 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
+                  className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
                   {...register("email")}
                 />
                 <button
                   type="submit"
-                  className="p-1 pr-4 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
+                  className="p-2 pr-2 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
                 >
-                  Stay in touch
+                  {isFuckingFold ? "Sub !" : " Stay in touch"}
                 </button>
                 <p className="absolute w-full text-center -bottom-6 text-danger/75">
                   {errors.email && "Invalid format."}
@@ -130,28 +166,28 @@ const Home: NextPage = () => {
         </div>
 
         <Link href="#next">
-          <ArrowLongDownIcon className="w-8 h-8 mb-4 bottom-0 animate-bounce-slow" />
+          <ArrowLongDownIcon className="bottom-0 w-8 h-8 mb-4 animate-bounce-slow" />
         </Link>
 
         <div
           id="next"
-          className="relative bg-neutral-50 text-left p-4 rounded-2xl w-full mt-16 mb-32 max-w-5xl space-y-4"
+          className="relative w-full max-w-5xl p-4 mt-16 mb-32 space-y-4 text-left bg-neutral-50 rounded-2xl"
         >
           <Image
             src="/who.png"
             alt="Guys clapping hands"
             width={350}
             height={350}
-            className="absolute -right-0 opacity-90 hidden lg:block"
+            className="absolute hidden -right-0 opacity-90 lg:block"
           />
-          <h3 className="text-4xl font-bold uppercase md:text-5xl">
+          <h3 className="!mt-0 text-4xl font-bold uppercase md:text-5xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-500 via-secondary-500 to-tertiary-500">
               For everyone
             </span>
           </h3>
-          <div className="flex flex-col relative pl-12">
-            <LightBulbIcon className="w-20 h-20 opacity-30 absolute left-0 text-primary-500" />
-            <h4 className="flex text-primary-500 text-2xl font-semibold">
+          <div className="relative flex flex-col pl-12">
+            <LightBulbIcon className="absolute left-0 w-20 h-20 opacity-30 text-primary-500" />
+            <h4 className="flex text-2xl font-semibold text-primary-500">
               Retailer ?
             </h4>
             <p>
@@ -161,9 +197,9 @@ const Home: NextPage = () => {
               your business.
             </p>
           </div>
-          <div className="flex flex-col relative pl-12">
-            <UserGroupIcon className="w-20 h-20 opacity-30 absolute left-0 text-secondary-500" />
-            <h4 className="flex text-secondary-500 text-2xl font-semibold">
+          <div className="relative flex flex-col pl-12">
+            <UserGroupIcon className="absolute left-0 w-20 h-20 opacity-30 text-secondary-500" />
+            <h4 className="flex text-2xl font-semibold text-secondary-500">
               Manager ?
             </h4>
             <p>
@@ -172,9 +208,9 @@ const Home: NextPage = () => {
               Iterate faster and submit your ideas to your team faster.
             </p>
           </div>
-          <div className="flex flex-col relative pl-12">
-            <ClipboardDocumentListIcon className="w-20 h-20 opacity-30 absolute left-0 text-tertiary-500" />
-            <h4 className="flex text-tertiary-500 text-2xl font-semibold">
+          <div className="relative flex flex-col pl-12">
+            <ClipboardDocumentListIcon className="absolute left-0 w-20 h-20 opacity-30 text-tertiary-500" />
+            <h4 className="flex text-2xl font-semibold text-tertiary-500">
               Copywriter ?
             </h4>
             <p>
@@ -190,7 +226,7 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
-        <div className="flex flex-col justify-between w-full  mb-32 space-y-8 max-w-2xl items-around">
+        <div className="flex flex-col justify-between w-full max-w-2xl mb-32 space-y-8 items-around">
           <div className="my-16">
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-500 via-secondary-500 to-tertiary-500">
@@ -202,12 +238,12 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div className="z-0 card md:card-side">
-            <figure className="order-1 md:order-none relative">
+            <figure className="relative order-1 md:order-none">
               <One />
               <Image
                 alt="Upload a photo"
                 src="/step1.svg"
-                className="mt-4 h-44 w-44 md:h-56 md:w-56 p-4 opacity-90"
+                className="p-4 mt-4 h-44 w-44 md:h-56 md:w-56 opacity-90"
                 width={256}
                 height={256}
                 quality={100}
@@ -284,8 +320,8 @@ const Home: NextPage = () => {
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
 
-        <div className="relative bg-neutral-50 text-left p-4 rounded-2xl w-full mt-16 mb-32 max-w-5xl space-y-12 flex flex-col items-center">
-          <h3 className="text-4xl font-bold uppercase md:text-5xl self-start">
+        <div className="relative flex flex-col items-center w-full max-w-5xl p-4 mt-16 mb-32 space-y-12 text-left bg-neutral-50 rounded-2xl">
+          <h3 className="self-start text-4xl font-bold uppercase md:text-5xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
               What's next ?
             </span>
@@ -298,6 +334,7 @@ const Home: NextPage = () => {
             <li className="step">Batch Gen</li>
             <li className="step">Plugins & Apps</li>
             <li className="step">Pro Pictures</li>
+            <li className="step">... and more !</li>
           </ul>
           {/* <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
             <div className="relative z-20 flex flex-col items-center justify-center py-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-primary-500 text-neutral-50">

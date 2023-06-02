@@ -24,6 +24,7 @@ import { Two } from "../components/blobs/Two";
 import { Three } from "../components/blobs/Three";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { NextSeo } from "next-seo";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
@@ -100,9 +101,38 @@ const Home: NextPage = () => {
         <title>depikt - Generate Product Infos From Pictures</title>
       </Head>
 
+      <NextSeo
+        title="depikt - Generate Product Infos From Pictures"
+        description="Generate all your e-shop product information from its pictures. Thanks to AI."
+        canonical="https://depiktAI.com/"
+        openGraph={{
+          type: "website",
+          locale: "en_US",
+          url: "https://depiktAI.com/",
+          title: "depikt - Generate Product Infos From Pictures",
+          description:
+            "Generate all your e-shop product information from its pictures. Thanks to AI.",
+          site_name: "depikt",
+        }}
+        twitter={{
+          handle: "@MajorBaguette",
+          site: "@MajorBaguette",
+          cardType: "summary_large_image",
+        }}
+      />
+
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
-        <div className="hero relative min-h-[calc(100vh-8rem)]">
+        <div
+          className="hero relative min-h-[calc(100vh-8rem)]"
+          style={{
+            background: "url('/gggyrate.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            opacity: "0.8",
+          }}
+        >
           <div className="flex-col w-full h-full hero-content lg:flex-row">
             <div className="flex items-center justify-center lg:w-1/2">
               <div
@@ -342,10 +372,10 @@ const Home: NextPage = () => {
               <div className="flex flex-col items-center justify-center w-56 h-56 gap-2 rounded-full bg-gradient-to-br from-primary-200 via-secondary-200 to-tertiary-200 ">
                 <p className="text-neutral-500 ">starting from</p>
                 <p className="font-black text-transparent text-7xl bg-gradient-to-b from-primary-800 to-secondary-800 bg-clip-text">
-                  0.5
-                  <span className="text-transparent bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text">
+                  <span className="text-5xl font-normal text-transparent -translate-y-2 bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text">
                     $
                   </span>
+                  0.5
                 </p>
                 <p className="text-neutral-500 ">per product info.</p>
               </div>

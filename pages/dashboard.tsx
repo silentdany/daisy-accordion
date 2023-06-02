@@ -4,15 +4,17 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import prisma from "../lib/prismadb";
-import { Description } from "@prisma/client";
+// import { Description } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 
-export default function Dashboard({
-  descriptions,
-}: {
-  descriptions: Description[];
-}) {
+export default function Dashboard(
+  {
+    //   descriptions,
+    // }: {
+    //   descriptions: Description[];
+  }
+) {
   const { data: session } = useSession();
 
   return (
@@ -24,7 +26,8 @@ export default function Dashboard({
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}
       />
-      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-12 mb-8 text-center sm:mb-0">
+      <main className="h-screen"></main>
+      {/* <main className="flex flex-col items-center justify-center flex-1 w-full px-4 mt-12 mb-8 text-center sm:mb-0">
         <h1 className="max-w-4xl mx-auto mb-5 text-4xl font-bold tracking-normal font-display text-neutral-100 sm:text-6xl">
           View your <span className="text-primary-600">description</span>{" "}
           generations
@@ -46,13 +49,13 @@ export default function Dashboard({
           </p>
         )}
         WIP
-        {/* {descriptions.map((description) => (
+        {descriptions.map((description) => (
           <RoomGeneration
             original={description.inputImage}
             generated={description.outputTitle}
           />
-        ))} */}
-      </main>
+        ))}
+      </main> */}
       <Footer />
     </div>
   );

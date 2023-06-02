@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import {
   ArrowLongDownIcon,
+  ArrowRightIcon,
   ClipboardDocumentListIcon,
   ComputerDesktopIcon,
   DevicePhoneMobileIcon,
@@ -22,7 +23,9 @@ import { One } from "../components/blobs/One";
 import { Two } from "../components/blobs/Two";
 import { Three } from "../components/blobs/Three";
 import Link from "next/link";
-import ReactPlayer from "react-player";
+import dynamic from "next/dynamic";
+
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 type FormData = yup.InferType<typeof schema>;
 
@@ -34,7 +37,7 @@ const schema = yup
 
 const Home: NextPage = () => {
   const isTabletOnly = useMediaQuery(
-    "only screen and (min-width: 768px) and (max-width: 1024px)"
+    "only screen and (min-width: 768px) and (max-width: 1023px)"
   );
   const isMobile = useMediaQuery("only screen and (max-width: 767px)");
   const isFuckingFold = useMediaQuery("only screen and (max-width: 280px)");
@@ -54,8 +57,8 @@ const Home: NextPage = () => {
       videoHeight = 260;
       break;
     default:
-      videoWidth = 350;
-      videoHeight = 350;
+      videoWidth = 450;
+      videoHeight = 450;
       break;
   }
 
@@ -100,10 +103,10 @@ const Home: NextPage = () => {
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
         <div className="hero relative min-h-[calc(100vh-8rem)]">
-          <div className="flex-col h-full gap-16 hero-content lg:flex-row">
-            <div className="flex items-center justify-center h-1/2 lg:h-full">
+          <div className="flex-col w-full h-full hero-content lg:flex-row">
+            <div className="flex items-center justify-center lg:w-1/2">
               <div
-                className={`flex p-4 shadow-2x lg:max-w-sm bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
+                className={`flex p-4 shadow-2x  bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
                   isFuckingFold ? "w-56" : ""
                 }`}
               >
@@ -123,26 +126,26 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="w-full lg:w-1/2">
-              <h1 className="text-5xl">
+              <h1 className="text-5xl lg:text-6xl">
                 <em className="not-italic font-bold text-primary-500">
                   1-click
                 </em>
                 <br />
                 Optimized Product Infos.
               </h1>
-              <h2 className="pt-2 text-lg md:text-xl">
+              <h2 className="pt-2 text-lg md:text-2xl">
                 Generate all your e-shop product information from its pictures.
                 <br />
                 Thanks to <em className="not-italic text-primary-500">AI</em>.
               </h2>
               <form
                 key={1}
-                className="relative inline-block self-center w-max animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+                className="relative inline-block self-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <input
                   placeholder="Your email"
-                  className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
+                  className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-80 md:p-2 focus:border-primary-500"
                   {...register("email")}
                 />
                 <button
@@ -173,7 +176,7 @@ const Home: NextPage = () => {
 
         <div
           id="next"
-          className="relative w-full max-w-5xl p-4 mt-16 mb-32 space-y-4 text-left bg-neutral-50 rounded-2xl"
+          className="relative w-full max-w-5xl p-4 mt-16 mb-16 space-y-4 text-left shadow bg-neutral-50 rounded-2xl"
         >
           <Image
             src="/who.png"
@@ -190,7 +193,7 @@ const Home: NextPage = () => {
           <div className="relative flex flex-col pl-12">
             <LightBulbIcon className="absolute left-0 w-20 h-20 opacity-30 text-primary-500" />
             <h4 className="flex text-2xl font-semibold text-primary-500">
-              Retailer ?
+              Retailer
             </h4>
             <p>
               Finding the right description can be hard.
@@ -202,7 +205,7 @@ const Home: NextPage = () => {
           <div className="relative flex flex-col pl-12">
             <UserGroupIcon className="absolute left-0 w-20 h-20 opacity-30 text-secondary-500" />
             <h4 className="flex text-2xl font-semibold text-secondary-500">
-              Manager ?
+              Manager
             </h4>
             <p>
               Handling a lot of products ?
@@ -213,7 +216,7 @@ const Home: NextPage = () => {
           <div className="relative flex flex-col pl-12">
             <ClipboardDocumentListIcon className="absolute left-0 w-20 h-20 opacity-30 text-tertiary-500" />
             <h4 className="flex text-2xl font-semibold text-tertiary-500">
-              Copywriter ?
+              Copywriter
             </h4>
             <p>
               Give yourself a head start.
@@ -224,12 +227,13 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
+        {/* <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
         <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
-        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
+        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span> */}
+        <div className="divider"></div>
 
-        <div className="flex flex-col justify-between w-full max-w-2xl mb-32 space-y-8 items-around">
-          <div className="my-16">
+        <div className="flex flex-col justify-between w-full max-w-2xl my-16 space-y-8 items-around">
+          <div>
             <h3 className="text-4xl font-bold uppercase md:text-5xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary-500 via-secondary-500 to-tertiary-500">
                 How to use
@@ -239,7 +243,7 @@ const Home: NextPage = () => {
               Easy-to-use is our top priority.
             </p>
           </div>
-          <div className="z-0 card md:card-side">
+          <div className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent">
             <figure className="relative order-1 md:order-none">
               <One />
               <Image
@@ -265,7 +269,7 @@ const Home: NextPage = () => {
               </p>
             </div>
           </div>
-          <div className="z-0 card md:card-side">
+          <div className="z-0 card md:card-side md:bg-gradient-to-l bg-gradient-to-b from-slate-50 to-transparent">
             <div className="card-body md:text-right md:w-1/2">
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 2
@@ -290,7 +294,7 @@ const Home: NextPage = () => {
               />
             </figure>
           </div>
-          <div className="z-0 card md:card-side">
+          <div className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent">
             <figure className="relative order-1 md:order-none">
               <Three />
               <Image
@@ -318,68 +322,83 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <span className="z-20 w-3/4 h-4 translate-x-8 translate-y-2 shadow-lg md:translate-x-16 lg:translate-x-32 bg-primary-500 rotate-3"></span>
-        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-1 bg-tertiary-500 rotate-3 z-10"></span>
-        <span className="w-3/4 shadow-lg !mt-0 h-4 -translate-y-4 -translate-x-8 md:-translate-x-16 lg:-translate-x-32 bg-secondary-500 rotate-3 z-0"></span>
+        <div className="divider"></div>
 
-        <div className="relative flex flex-col items-center w-full max-w-5xl p-4 mt-16 mb-32 space-y-12 text-left bg-neutral-50 rounded-2xl">
-          <h3 className="self-start text-4xl font-bold uppercase md:text-5xl">
+        <div className="relative flex flex-col items-center w-full max-w-5xl p-4 my-16 space-y-24 text-left shadow bg-neutral-50 rounded-2xl">
+          <h3 className="self-start text-4xl font-bold uppercase lg:text-5xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
-              What's next ?
+              Pricing
             </span>
           </h3>
-          <p className="text-2xl text-neutral-500">
-            We have some more ideas coming...
-          </p>
+          <div className="flex flex-col gap-4 lg:flex-row">
+            <div className="flex flex-col items-center justify-center gap-2 text-center lg:items-end lg:text-right lg:w-2/5">
+              <h4 className="text-4xl text-primary-500">Clear credit system</h4>
+              <p className="text-lg leading-tight text-tertiary-600">
+                Experience the convenience of our credit system, eliminating the
+                need for another monthly subscriptions.
+              </p>
+            </div>
+            <div className="relative inline-block self-center w-max text-lg animate-border shadow-xl rounded-full bg-white bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-2">
+              <div className="flex flex-col items-center justify-center w-56 h-56 gap-2 rounded-full bg-gradient-to-br from-primary-200 via-secondary-200 to-tertiary-200 ">
+                <p className="text-neutral-500 ">starting from</p>
+                <p className="font-black text-transparent text-7xl bg-gradient-to-b from-primary-800 to-secondary-800 bg-clip-text">
+                  0.5
+                  <span className="text-transparent bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text">
+                    $
+                  </span>
+                </p>
+                <p className="text-neutral-500 ">per product info.</p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-2 text-center lg:items-start lg:text-left lg:w-2/5">
+              <h4 className="text-4xl text-primary-500">Flexible usage</h4>
+              <p className="text-lg leading-tight text-tertiary-600">
+                Pay now and access the tool whenever you require, don't worry
+                about unused credits anymore.
+              </p>
+            </div>
+          </div>
+          <Link href="#" className="text-2xl text-neutral-500">
+            See full pricing
+            <ArrowRightIcon className="inline-block w-6 h-6 ml-1 text-neutral-500" />
+          </Link>
+        </div>
+
+        <div className="divider"></div>
+
+        <div className="relative flex flex-col items-center w-full max-w-5xl p-4 my-16 space-y-32 text-left">
+          <div>
+            <h3 className="text-4xl font-bold uppercase md:text-5xl">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500">
+                What's next ?
+              </span>
+            </h3>
+            <p className="text-2xl text-neutral-500">
+              We have more ideas coming...
+            </p>
+          </div>
           <ul className="steps steps-vertical lg:steps-horizontal ">
-            <li className="step">Fine-tuning</li>
-            <li className="step">Batch Gen</li>
-            <li className="step">Plugins & Apps</li>
-            <li className="step">Pro Pictures</li>
-            <li className="step">... and more !</li>
+            <li className="step step-secondary">Fine-tuning</li>
+            <li className="step step-secondary">Batch Gen</li>
+            <li className="step step-secondary">Plugins & Apps</li>
+            <li className="step step-secondary">Pro Pictures</li>
+            <li className="step step-secondary">... and more !</li>
           </ul>
-          {/* <div className="flex flex-col justify-center w-3/4 mx-4 md:w-1/2 lg:w-full lg:flex-row">
-            <div className="relative z-20 flex flex-col items-center justify-center py-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-primary-500 text-neutral-50">
-              <ChatBubbleBottomCenterTextIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-12">
-                Fine-tune your descriptions
-                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
-                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-primary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
-                <div className="absolute left-0 w-full h-10 lg:top-0 lg:w-10 lg:h-48 bg-primary-500 rounded-2xl -top-4 lg:-left-4"></div>
-              </div>
-            </div>
-            <div className="relative z-10 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-secondary-500 text-neutral-50">
-              <Cog6ToothIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-12">
-                Find product specs easily
-                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:translate-y-[93px] -translate-x-[48%] lg:translate-x-0 -bottom-4 lg:bottom-0 left-0 lg:left-auto lg:-right-4 rotate-6"></div>
-                <div className="absolute lg:w-10 w-full lg:top-0 h-10 lg:h-48 bg-secondary-500 lg:-translate-y-[93px] translate-x-[48%] lg:translate-x-0 -bottom-4 lg:-right-4 right-0 lg:bottom-0 -rotate-6"></div>
-              </div>
-            </div>
-            <div className="relative z-0 flex flex-col items-center justify-center pt-24 pb-12 text-3xl font-medium shadow-2xl lg:w-1/3 lg:py-0 lg:h-48 lg:text-2xl overflow-x-clip lg:overflow-x-visible lg:overflow-y-clip bg-tertiary-500 text-neutral-50">
-              <RocketLaunchIcon className="w-20 h-20 mb-2" />
-              <div className="flex items-center px-12">
-                Enhance your pictures
-                <div className="absolute left-0 w-full h-10 lg:left-auto bg-tertiary-500 lg:top-0 lg:w-10 lg:h-48 rounded-2xl -bottom-4 lg:-right-4"></div>
-              </div>
-            </div>
-          </div> */}
-          {/* <CustomButton title="Ok, let me know" external /> */}
           <form
             key={2}
-            className="relative !mb-8 inline-block self-center w-max animate-border hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            className="relative inline-block self-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
             onSubmit={handleSubmit2(onSubmit)}
           >
             <input
               placeholder="Your email"
-              className="w-32 p-1 text-center border-2 border-transparent rounded-l-full outline-none md:w-auto md:p-2 focus:border-primary-500"
+              className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-80 md:p-2 focus:border-primary-500"
               {...register2("email")}
             />
             <button
               type="submit"
-              className="p-1 pr-4 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
+              className="p-2 pr-2 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
             >
-              Stay in touch
+              {isFuckingFold ? "Sub !" : " Stay in touch"}
             </button>
             <p className="absolute w-full text-center -bottom-6 text-danger/75">
               {errors2.email && "Invalid format."}

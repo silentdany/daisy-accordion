@@ -115,6 +115,8 @@ const Home: NextPage = () => {
                   }
                   playing
                   loop
+                  playsinline
+                  muted
                   width={videoWidth}
                   height={videoHeight}
                 />

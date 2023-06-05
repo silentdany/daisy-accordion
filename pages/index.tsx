@@ -26,6 +26,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { NextSeo } from "next-seo";
 
+const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 type FormData = yup.InferType<typeof schema>;
@@ -371,11 +372,19 @@ const Home: NextPage = () => {
             <div className="relative inline-block self-center w-max text-lg animate-border shadow-xl rounded-full bg-white bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-2">
               <div className="flex flex-col items-center justify-center w-56 h-56 gap-2 rounded-full bg-gradient-to-br from-primary-200 via-secondary-200 to-tertiary-200 ">
                 <p className="text-neutral-500 ">starting from</p>
-                <p className="font-black text-transparent text-7xl bg-gradient-to-b from-primary-800 to-secondary-800 bg-clip-text">
-                  <span className="text-5xl font-normal text-transparent -translate-y-2 bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text">
+                <p className="relative font-black text-transparent text-7xl bg-gradient-to-b from-primary-800 to-secondary-800 bg-clip-text">
+                  <span className="absolute text-3xl text-transparent -translate-y-2 -left-4 top-2 bg-gradient-to-b from-primary-500 to-secondary-500 bg-clip-text">
                     $
                   </span>
-                  0.5
+                  <CountUp
+                    start={0}
+                    end={0.5}
+                    duration={2}
+                    decimals={1}
+                    decimal="."
+                    enableScrollSpy
+                    scrollSpyOnce
+                  />
                 </p>
                 <p className="text-neutral-500 ">per product info.</p>
               </div>

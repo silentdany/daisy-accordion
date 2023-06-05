@@ -25,6 +25,7 @@ import { Three } from "../components/blobs/Three";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { NextSeo } from "next-seo";
+import { motion } from "framer-motion";
 
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
@@ -136,7 +137,10 @@ const Home: NextPage = () => {
         >
           <div className="flex-col w-full h-full hero-content lg:flex-row">
             <div className="flex items-center justify-center lg:w-1/2">
-              <div
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
                 className={`flex p-4 shadow-2x  bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
                   isFuckingFold ? "w-56" : ""
                 }`}
@@ -154,9 +158,9 @@ const Home: NextPage = () => {
                   width={videoWidth}
                   height={videoHeight}
                 />
-              </div>
+              </motion.div>
             </div>
-            <div className="w-full lg:w-1/2">
+            <div className="w-full mt-8 lg:mt-0 lg:px-14 lg:w-1/2">
               <h1 className="text-5xl lg:text-6xl">
                 <em className="not-italic font-bold text-primary-500">
                   1-click
@@ -164,11 +168,16 @@ const Home: NextPage = () => {
                 <br />
                 Optimized Product Infos.
               </h1>
-              <h2 className="pt-2 text-lg md:text-2xl">
+              <motion.h2
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: 0.25 }}
+                className="pt-2 text-lg md:text-2xl"
+              >
                 Generate all your e-shop product information from its pictures.
                 <br />
                 Thanks to <em className="not-italic text-primary-500">AI</em>.
-              </h2>
+              </motion.h2>
               <form
                 key={1}
                 className="relative inline-block self-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
@@ -226,35 +235,50 @@ const Home: NextPage = () => {
             <h4 className="flex text-2xl font-semibold text-primary-500">
               Retailer
             </h4>
-            <p>
+            <motion.p
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25 }}
+              viewport={{ amount: 0.1, once: true }}
+            >
               Finding the right description can be hard.
               <br />
               Let depikt do the job so you can focus on what really counts :
               your business.
-            </p>
+            </motion.p>
           </div>
           <div className="relative flex flex-col pl-12">
             <UserGroupIcon className="absolute left-0 w-20 h-20 opacity-30 text-secondary-500" />
             <h4 className="flex text-2xl font-semibold text-secondary-500">
               Manager
             </h4>
-            <p>
+            <motion.p
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.2 }}
+              viewport={{ amount: 0.1, once: true }}
+            >
               Handling a lot of products ?
               <br />
               Iterate faster and submit your ideas to your team faster.
-            </p>
+            </motion.p>
           </div>
           <div className="relative flex flex-col pl-12">
             <ClipboardDocumentListIcon className="absolute left-0 w-20 h-20 opacity-30 text-tertiary-500" />
             <h4 className="flex text-2xl font-semibold text-tertiary-500">
               Copywriter
             </h4>
-            <p>
+            <motion.p
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.4 }}
+              viewport={{ amount: 0.1, once: true }}
+            >
               Give yourself a head start.
               <br />
               Generate template text to help you write your product description
               in a snap.
-            </p>
+            </motion.p>
           </div>
         </div>
 
@@ -274,7 +298,13 @@ const Home: NextPage = () => {
               Easy-to-use is our top priority.
             </p>
           </div>
-          <div className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent">
+          <motion.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.25 }}
+            viewport={{ amount: 0.1, once: true }}
+            className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent"
+          >
             <figure className="relative order-1 md:order-none">
               <One />
               <Image
@@ -299,8 +329,14 @@ const Home: NextPage = () => {
                 for.
               </p>
             </div>
-          </div>
-          <div className="z-0 card md:card-side md:bg-gradient-to-l bg-gradient-to-b from-slate-50 to-transparent">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.25 }}
+            viewport={{ amount: 0.1, once: true }}
+            className="z-0 card md:card-side md:bg-gradient-to-l bg-gradient-to-b from-slate-50 to-transparent"
+          >
             <div className="card-body md:text-right md:w-1/2">
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 2
@@ -324,8 +360,14 @@ const Home: NextPage = () => {
                 sizes="256px"
               />
             </figure>
-          </div>
-          <div className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.25 }}
+            viewport={{ amount: 0.1, once: true }}
+            className="z-0 card md:card-side md:bg-gradient-to-r bg-gradient-to-b from-slate-50 to-transparent"
+          >
             <figure className="relative order-1 md:order-none">
               <Three />
               <Image
@@ -350,7 +392,7 @@ const Home: NextPage = () => {
                 choose and copy from.
               </p>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="divider"></div>
@@ -362,14 +404,20 @@ const Home: NextPage = () => {
             </span>
           </h3>
           <div className="flex flex-col gap-4 lg:flex-row">
-            <div className="flex flex-col items-center justify-center gap-2 text-center lg:items-end lg:text-right lg:w-2/5">
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="z-0 flex flex-col items-center justify-center gap-2 text-center lg:items-end lg:text-right lg:w-2/5"
+            >
               <h4 className="text-4xl text-primary-500">Clear credit system</h4>
               <p className="text-lg leading-tight text-tertiary-600">
                 Experience the convenience of our credit system, eliminating the
                 need for another monthly subscriptions.
               </p>
-            </div>
-            <div className="relative inline-block self-center w-max text-lg animate-border shadow-xl rounded-full bg-white bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-2">
+            </motion.div>
+            <div className="z-10 relative inline-block self-center w-max text-lg animate-border shadow-xl rounded-full bg-white bg-gradient-to-r from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-2">
               <div className="flex flex-col items-center justify-center w-56 h-56 gap-2 rounded-full bg-gradient-to-br from-primary-200 via-secondary-200 to-tertiary-200 ">
                 <p className="text-neutral-500 ">starting from</p>
                 <p className="relative font-black text-transparent text-7xl bg-gradient-to-b from-primary-800 to-secondary-800 bg-clip-text">
@@ -389,13 +437,19 @@ const Home: NextPage = () => {
                 <p className="text-neutral-500 ">per product info.</p>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 text-center lg:items-start lg:text-left lg:w-2/5">
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.25 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="z-0 flex flex-col items-center justify-center gap-2 text-center lg:items-start lg:text-left lg:w-2/5"
+            >
               <h4 className="text-4xl text-primary-500">Flexible usage</h4>
               <p className="text-lg leading-tight text-tertiary-600">
                 Pay now and access the tool whenever you require, don't worry
                 about unused credits anymore.
               </p>
-            </div>
+            </motion.div>
           </div>
           <Link href="#" className="text-2xl text-neutral-500">
             See full pricing
@@ -417,11 +471,51 @@ const Home: NextPage = () => {
             </p>
           </div>
           <ul className="steps steps-vertical lg:steps-horizontal ">
-            <li className="step step-secondary">Fine-tuning</li>
-            <li className="step step-secondary">Batch Gen</li>
-            <li className="step step-secondary">Plugins & Apps</li>
-            <li className="step step-secondary">Pro Pictures</li>
-            <li className="step step-secondary">... and more !</li>
+            <motion.li
+              initial={{ opacity: 0, x: 0 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.1 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="step step-secondary"
+            >
+              Fine-tuning
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.1 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="step step-secondary"
+            >
+              Batch Gen
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.2 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="step step-secondary"
+            >
+              Plugins & Apps
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.3 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="step step-secondary"
+            >
+              Pro Pictures
+            </motion.li>
+            <motion.li
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.25, delay: 0.4 }}
+              viewport={{ amount: 0.1, once: true }}
+              className="step step-secondary"
+            >
+              ... and more !
+            </motion.li>
           </ul>
           <form
             key={2}

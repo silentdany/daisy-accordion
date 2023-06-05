@@ -10,10 +10,10 @@ export const Two = () => {
     >
       <defs>
         <linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
-          <stop id="stop1" stop-color="rgba(6, 182, 212, 1)" offset="0%"></stop>
+          <stop id="stop1" stopColor="rgba(6, 182, 212, 1)" offset="0%"></stop>
           <stop
             id="stop2"
-            stop-color="rgba(59, 130, 246, 1)"
+            stopColor="rgba(59, 130, 246, 1)"
             offset="100%"
           ></stop>
         </linearGradient>
@@ -24,7 +24,7 @@ export const Two = () => {
         width="100%"
         height="100%"
         transform="translate(50 50)"
-        stroke-width="0"
+        strokeWidth="0"
         style={{ transition: "all 0.3s ease 0s" }}
         stroke="url(#sw-gradient)"
       ></path>

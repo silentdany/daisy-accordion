@@ -300,9 +300,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 1
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Upload
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Choose up to 3 pictures of your product you need descriptions
                 for.
@@ -320,9 +320,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 2
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Generate
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Wait for the magic to happen !
               </p>
@@ -363,9 +363,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 3
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Pick
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Get 3 fully detailed informations tailored for your product to
                 choose and copy from.

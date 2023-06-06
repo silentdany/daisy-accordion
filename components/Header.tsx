@@ -20,9 +20,9 @@ export default function Header({
             width={40}
             height={40}
           /> */}
-          <h1 className="ml-2 text-2xl tracking-tight md:text-3xl">
+          <h2 className="ml-2 text-2xl tracking-tight md:text-3xl">
             de<span className="font-bold text-primary-500">pikt</span>
-          </h1>
+          </h2>
         </div>
         {/* {email ? (
           <div className="flex items-center space-x-4">

@@ -3,49 +3,45 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 
 class MyDocument extends Document {
+  router = useRouter();
   render() {
-    const router = useRouter();
     return (
       <Html lang="en" className="scroll-smooth" data-theme="depikt">
         <Head>
           <link
             rel="apple-touch-icon"
-            href={`${router.basePath}/apple-touch-icon.png`}
+            href="apple-touch-icon.png"
             key="apple"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href={`${router.basePath}/favicon-32x32.png`}
+            href="favicon-32x32.png"
             key="icon32"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href={`${router.basePath}/favicon-16x16.png`}
+            href="favicon-16x16.png"
             key="icon16"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="192x192"
-            href={`${router.basePath}/android-chrome-32x32.png`}
+            href="android-chrome-32x32.png"
             key="icon32"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="512x512"
-            href={`${router.basePath}/android-chrome-512x512.png`}
+            href="android-chrome-512x512.png"
             key="icon16"
           />
-          <link
-            rel="icon"
-            href={`${router.basePath}/favicon.ico`}
-            key="favicon"
-          />
+          <link rel="icon" href="favicon.ico" key="favicon" />
           <NextSeo
             title="depikt - Generate Product Informations From Pictures"
             description="Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly."
@@ -60,7 +56,7 @@ class MyDocument extends Document {
               site_name: "depikt",
               images: [
                 {
-                  url: `${router.basePath}/og-image.jpg`,
+                  url: "/og-image.jpg",
                   width: 1200,
                   height: 630,
                   alt: "depikt - Generate Product Informations From Pictures ",

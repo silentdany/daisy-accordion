@@ -24,7 +24,6 @@ import { Two } from "../components/blobs/Two";
 import { Three } from "../components/blobs/Three";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { NextSeo } from "next-seo";
 import { motion } from "framer-motion";
 
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
@@ -102,26 +101,6 @@ const Home: NextPage = () => {
       <Head>
         <title>depikt - Generate Product Infos From Pictures</title>
       </Head>
-
-      <NextSeo
-        title="depikt - Generate Product Infos From Pictures"
-        description="Generate all your e-shop product information from its pictures. Thanks to AI."
-        canonical="https://depiktAI.com/"
-        openGraph={{
-          type: "website",
-          locale: "en_US",
-          url: "https://depiktAI.com/",
-          title: "depikt - Generate Product Infos From Pictures",
-          description:
-            "Generate all your e-shop product information from its pictures. Thanks to AI.",
-          site_name: "depikt",
-        }}
-        twitter={{
-          handle: "@MajorBaguette",
-          site: "@MajorBaguette",
-          cardType: "summary_large_image",
-        }}
-      />
 
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">

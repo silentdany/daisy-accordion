@@ -17,6 +17,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { ProductInfosGen } from "../components/ProductInfosGen";
 import { CustomButton } from "../components/CustomButton";
 import ResizablePanel from "../components/ResizablePanel";
+import { NextSeo } from "next-seo";
 
 // Configuration for the uploader
 const uploader = Uploader({
@@ -284,6 +285,33 @@ const App: NextPage = () => {
       <Head>
         <title>depikt App</title>
       </Head>
+      <NextSeo
+        title="depikt - Generate Product Informations From Pictures"
+        description="Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly."
+        canonical="https://depiktAI.com/"
+        openGraph={{
+          type: "website",
+          locale: "en_US",
+          url: "https://depiktAI.com/",
+          title: "depikt - Generate Product Informations From Pictures",
+          description:
+            "Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly.",
+          site_name: "depikt",
+          images: [
+            {
+              url: "/og-image.jpg",
+              width: 1200,
+              height: 630,
+              alt: "depikt - Generate Product Informations From Pictures ",
+            },
+          ],
+        }}
+        twitter={{
+          handle: "@MajorBaguette",
+          site: "@MajorBaguette",
+          cardType: "summary_large_image",
+        }}
+      />
       <Header
         photo={session?.user?.image || undefined}
         email={session?.user?.email || undefined}

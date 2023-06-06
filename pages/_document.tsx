@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import { NextSeo } from "next-seo";
 
 class MyDocument extends Document {
   render() {
@@ -40,33 +39,6 @@ class MyDocument extends Document {
             key="icon16"
           />
           <link rel="icon" href="favicon.ico" key="favicon" />
-          <NextSeo
-            title="depikt - Generate Product Informations From Pictures"
-            description="Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly."
-            canonical="https://depiktAI.com/"
-            openGraph={{
-              type: "website",
-              locale: "en_US",
-              url: "https://depiktAI.com/",
-              title: "depikt - Generate Product Informations From Pictures",
-              description:
-                "Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly.",
-              site_name: "depikt",
-              images: [
-                {
-                  url: "/og-image.jpg",
-                  width: 1200,
-                  height: 630,
-                  alt: "depikt - Generate Product Informations From Pictures ",
-                },
-              ],
-            }}
-            twitter={{
-              handle: "@MajorBaguette",
-              site: "@MajorBaguette",
-              cardType: "summary_large_image",
-            }}
-          />
         </Head>
         <body className="bg-fixed bg-neutral-50 bg-gradient-to-tl from-primary-500/20 via-secondary-500/20 to-tertiary-500/20">
           <Main />

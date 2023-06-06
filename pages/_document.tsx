@@ -1,9 +1,7 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
 import { NextSeo } from "next-seo";
-import { useRouter } from "next/router";
 
 class MyDocument extends Document {
-  router = useRouter();
   render() {
     return (
       <Html lang="en" className="scroll-smooth" data-theme="depikt">

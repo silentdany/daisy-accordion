@@ -24,8 +24,8 @@ import { Two } from "../components/blobs/Two";
 import { Three } from "../components/blobs/Three";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { NextSeo } from "next-seo";
 import { motion } from "framer-motion";
+import { NextSeo } from "next-seo";
 
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
@@ -102,19 +102,26 @@ const Home: NextPage = () => {
       <Head>
         <title>depikt - Generate Product Infos From Pictures</title>
       </Head>
-
       <NextSeo
-        title="depikt - Generate Product Infos From Pictures"
-        description="Generate all your e-shop product information from its pictures. Thanks to AI."
+        title="depikt - Generate Product Informations From Pictures"
+        description="Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly."
         canonical="https://depiktAI.com/"
         openGraph={{
           type: "website",
           locale: "en_US",
           url: "https://depiktAI.com/",
-          title: "depikt - Generate Product Infos From Pictures",
+          title: "depikt - Generate Product Informations From Pictures",
           description:
-            "Generate all your e-shop product information from its pictures. Thanks to AI.",
+            "Introducing depikt, the ultimate AI-powered tool for e-shop owners, managers and more! Say goodbye to manual product information creation. With depikt, simply upload your product pictures and let our AI generate all the relevant details instantly.",
           site_name: "depikt",
+          images: [
+            {
+              url: "/og-image.webp",
+              width: 1200,
+              height: 630,
+              alt: "depikt - Generate Product Informations From Pictures ",
+            },
+          ],
         }}
         twitter={{
           handle: "@MajorBaguette",
@@ -122,7 +129,6 @@ const Home: NextPage = () => {
           cardType: "summary_large_image",
         }}
       />
-
       <Header />
       <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
         <div
@@ -321,9 +327,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 1
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Upload
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Choose up to 3 pictures of your product you need descriptions
                 for.
@@ -341,9 +347,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 2
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Generate
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Wait for the magic to happen !
               </p>
@@ -384,9 +390,9 @@ const Home: NextPage = () => {
               <p className="text-2xl font-bold md:text-3xl text-primary-500">
                 Step 3
               </p>
-              <h3 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
+              <h4 className="mb-4 text-3xl font-bold uppercase md:text-4xl">
                 Pick
-              </h3>
+              </h4>
               <p className="text-lg md:text-xl text-neutral-500">
                 Get 3 fully detailed informations bespoked for your product to
                 choose and copy from.

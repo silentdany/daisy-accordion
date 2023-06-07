@@ -10,9 +10,9 @@ export const One = () => {
     >
       <defs>
         <linearGradient id="sw-gradient" x1="0" x2="1" y1="1" y2="0">
-          <stop id="stop1" stopColor="rgba(6, 182, 212, 1)" offset="0%"></stop>
+          <stop id="stop11" stopColor="rgba(6, 182, 212, 1)" offset="0%"></stop>
           <stop
-            id="stop2"
+            id="stop21"
             stopColor="rgba(59, 130, 246, 1)"
             offset="100%"
           ></stop>

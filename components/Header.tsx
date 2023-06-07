@@ -13,13 +13,14 @@ export default function Header({
       <header className="sticky flex flex-col items-center justify-between w-full h-10 gap-2 px-2 mt-3 xs:flex-row sm:px-4">
         {/* <Link href="/app" className="flex items-start space-x-2"> */}
         <div className="flex items-start space-x-2">
-          {/* <Image
+          <Image
             alt="Depikt logo"
             src="/logo_black.png"
-            className="w-10 p-1 rounded-full shadow "
+            className="w-8 md:w-10"
             width={40}
             height={40}
-          /> */}
+          />
+          <span className="text-2xl md:text-3xl mx-2">|</span>
           <h1 className="ml-2 text-2xl tracking-tight md:text-3xl">
             de<span className="font-bold text-primary-500">pikt</span>
           </h1>

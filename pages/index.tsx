@@ -136,12 +136,12 @@ const Home: NextPage = () => {
           }}
         >
           <div className="flex-col w-full h-full hero-content lg:flex-row">
-            <div className="flex items-center justify-center lg:w-1/2">
+            <div className="flex items-center justify-center order-1 lg:order-none lg:w-1/2">
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.2 }}
-                className={`flex p-4 shadow-2x  bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
+                className={`flex p-4 shadow-2x bg-gradient-to-br from-secondary-500 rounded-2xl to-primary-500 ${
                   isFuckingFold ? "w-56" : ""
                 }`}
               >
@@ -388,7 +388,7 @@ const Home: NextPage = () => {
                 Pick
               </h3>
               <p className="text-lg md:text-xl text-neutral-500">
-                Get 3 fully detailed informations tailored for your product to
+                Get 3 fully detailed informations bespoked for your product to
                 choose and copy from.
               </p>
             </div>
@@ -409,7 +409,7 @@ const Home: NextPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.25 }}
               viewport={{ amount: 0.1, once: true }}
-              className="z-0 flex flex-col items-center justify-center gap-2 text-center lg:items-end lg:text-right lg:w-2/5"
+              className="z-0 flex flex-col px-16 items-center justify-center gap-2 text-center lg:items-end lg:text-right lg:w-2/5"
             >
               <h4 className="text-4xl text-primary-500">Clear credit system</h4>
               <p className="text-lg leading-tight text-tertiary-600">
@@ -442,7 +442,7 @@ const Home: NextPage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.25, delay: 0.25 }}
               viewport={{ amount: 0.1, once: true }}
-              className="z-0 flex flex-col items-center justify-center gap-2 text-center lg:items-start lg:text-left lg:w-2/5"
+              className="z-0 flex flex-col items-center  px-16 justify-center gap-2 text-center lg:items-start lg:text-left lg:w-2/5"
             >
               <h4 className="text-4xl text-primary-500">Flexible usage</h4>
               <p className="text-lg leading-tight text-tertiary-600">

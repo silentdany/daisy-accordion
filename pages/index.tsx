@@ -26,6 +26,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { NextSeo } from "next-seo";
+import { useState } from "react";
 
 const CountUp = dynamic(() => import("react-countup"), { ssr: false });
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
@@ -64,6 +65,8 @@ const Home: NextPage = () => {
       videoHeight = 450;
       break;
   }
+
+  const [checked, setChecked] = useState(false);
 
   const {
     register,
@@ -166,7 +169,7 @@ const Home: NextPage = () => {
                 />
               </motion.div>
             </div>
-            <div className="w-full mt-8 lg:mt-0 lg:px-14 lg:w-1/2">
+            <div className="w-full mt-8 lg:mt-0 lg:px-14 lg:w-1/2 flex flex-col justify-center items-center">
               <h1 className="text-5xl lg:text-6xl">
                 <em className="not-italic font-bold text-primary-500">
                   1-click
@@ -186,9 +189,12 @@ const Home: NextPage = () => {
               </motion.h2>
               <form
                 key={1}
-                className="relative inline-block self-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+                className="relative flex justify-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
                 onSubmit={handleSubmit(onSubmit)}
               >
+                <p className="absolute w-full text-center -top-6 text-danger/75">
+                  {errors.email && "Invalid format."}
+                </p>
                 <input
                   placeholder="Your email"
                   className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-80 md:p-2 focus:border-primary-500"
@@ -196,13 +202,27 @@ const Home: NextPage = () => {
                 />
                 <button
                   type="submit"
-                  className="p-2 pr-2 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
+                  disabled={!checked}
+                  className={`p-2 pr-2 text-center  border-2 rounded-r-full md:p-2  border-transparent-500 ${
+                    !checked
+                      ? "bg-tertiary-500 text-neutral-300"
+                      : "bg-transparent hover:bg-neutral-50/10 hover:border-2 text-neutral-50"
+                  }`}
                 >
                   {isFuckingFold ? "Sub !" : " Stay in touch"}
                 </button>
-                <p className="absolute w-full text-center -bottom-6 text-danger/75">
-                  {errors.email && "Invalid format."}
-                </p>
+                <div className="absolute group justify-center items-top top-14 w-5/6 flex">
+                  <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-400">
+                    By submitting this form, you consent to depikt using your
+                    data to respond to your contact request.
+                  </p>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    className="checkbox mt-[2px] checkbox-xs ml-1"
+                    onClick={() => setChecked(!checked)}
+                  />
+                </div>
               </form>
               <div className="flex justify-center space-x-8">
                 <DevicePhoneMobileIcon className="inline-block w-8 h-8 ml-2 lg:w-12 lg:h-12 text-tertiary-600" />
@@ -525,9 +545,12 @@ const Home: NextPage = () => {
           </ul>
           <form
             key={2}
-            className="relative inline-block self-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
+            className="relative flex justify-center w-max text-lg animate-border my-16 hover:shadow-xl rounded-full bg-white bg-gradient-to-r shadow-sm duration-100 from-primary-500 via-secondary-500 to-tertiary-500 bg-[length:400%_400%] p-1"
             onSubmit={handleSubmit2(onSubmit)}
           >
+            <p className="absolute w-full text-center -top-6 text-danger/75">
+              {errors2.email && "Invalid format."}
+            </p>
             <input
               placeholder="Your email"
               className="w-32 p-2 text-center border-2 border-transparent rounded-l-full outline-none md:w-80 md:p-2 focus:border-primary-500"
@@ -535,13 +558,27 @@ const Home: NextPage = () => {
             />
             <button
               type="submit"
-              className="p-2 pr-2 text-center bg-transparent border-2 rounded-r-full md:p-2 text-neutral-50 hover:bg-neutral-50/10 hover:border-2 border-transparent-500"
+              disabled={!checked}
+              className={`p-2 pr-2 text-center  border-2 rounded-r-full md:p-2  border-transparent-500 ${
+                !checked
+                  ? "bg-tertiary-500 text-neutral-300"
+                  : "bg-transparent hover:bg-neutral-50/10 hover:border-2 text-neutral-50"
+              }`}
             >
               {isFuckingFold ? "Sub !" : " Stay in touch"}
             </button>
-            <p className="absolute w-full text-center -bottom-6 text-danger/75">
-              {errors2.email && "Invalid format."}
-            </p>
+            <div className="absolute group justify-center items-top top-14 w-5/6 flex">
+              <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-400">
+                By submitting this form, you consent to depikt using your data
+                to respond to your contact request.
+              </p>
+              <input
+                type="checkbox"
+                checked={checked}
+                className="checkbox mt-[2px] checkbox-xs ml-1"
+                onClick={() => setChecked(!checked)}
+              />
+            </div>
           </form>
         </div>
       </main>

@@ -212,16 +212,16 @@ const Home: NextPage = () => {
                   {isFuckingFold ? "Sub !" : " Stay in touch"}
                 </button>
                 <div className="absolute group justify-center items-top top-14 w-5/6 flex">
-                  <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-400">
-                    By submitting this form, you consent to depikt using your
-                    data to respond to your contact request.
-                  </p>
                   <input
                     type="checkbox"
                     checked={checked}
-                    className="checkbox mt-[2px] checkbox-xs ml-1"
+                    className="checkbox mt-[2px] checkbox-xs mr-1"
                     onClick={() => setChecked(!checked)}
                   />
+                  <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-500">
+                    By submitting this form, you consent to depikt using your
+                    data to respond to your contact request.
+                  </p>
                 </div>
               </form>
               <div className="flex justify-center space-x-8">
@@ -568,16 +568,16 @@ const Home: NextPage = () => {
               {isFuckingFold ? "Sub !" : " Stay in touch"}
             </button>
             <div className="absolute group justify-center items-top top-14 w-5/6 flex">
-              <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-400">
-                By submitting this form, you consent to depikt using your data
-                to respond to your contact request.
-              </p>
               <input
                 type="checkbox"
                 checked={checked}
-                className="checkbox mt-[2px] checkbox-xs ml-1"
+                className="checkbox mt-[2px] checkbox-xs mr-1"
                 onClick={() => setChecked(!checked)}
               />
+              <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-500">
+                By submitting this form, you consent to depikt using your data
+                to respond to your contact request.
+              </p>
             </div>
           </form>
         </div>

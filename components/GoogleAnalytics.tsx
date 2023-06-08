@@ -1,10 +1,6 @@
 import Script from "next/script";
 
 const GoogleAnalytics = ({ GA_TRACKING_ID }: { GA_TRACKING_ID: string }) => {
-  console.log(
-    "🚀 ~ file: GoogleAnalytics.tsx:4 ~ GoogleAnalytics ~ GA_TRACKING_ID:",
-    GA_TRACKING_ID
-  );
   return (
     <>
       <Script

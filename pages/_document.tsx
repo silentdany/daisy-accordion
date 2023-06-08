@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import GoogleAnalytics from "../components/GoogleAnalytics";
 
 class MyDocument extends Document {
   render() {
@@ -41,7 +40,6 @@ class MyDocument extends Document {
           />
           <link rel="icon" href="favicon.ico" key="favicon" />
         </Head>
-        <GoogleAnalytics GA_TRACKING_ID={process.env.GA4_KEY!} />
         <body className="bg-fixed bg-neutral-50 bg-gradient-to-tl from-primary-500/20 via-secondary-500/20 to-tertiary-500/20">
           <Main />
           <NextScript />

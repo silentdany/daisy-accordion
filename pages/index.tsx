@@ -211,7 +211,7 @@ const Home: NextPage = () => {
                 >
                   {isFuckingFold ? "Sub !" : " Stay in touch"}
                 </button>
-                <div className="absolute group justify-center items-top top-14 w-5/6 flex">
+                <div className="absolute group justify-center items-top top-14 w-4/5 flex">
                   <input
                     type="checkbox"
                     checked={checked}
@@ -221,6 +221,12 @@ const Home: NextPage = () => {
                   <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-500">
                     By submitting this form, you consent to depikt using your
                     data to respond to your contact request.
+                    <Link
+                      href="/legals"
+                      className="text-tertiary-500 underline ml-1"
+                    >
+                      See legals.
+                    </Link>
                   </p>
                 </div>
               </form>
@@ -567,7 +573,7 @@ const Home: NextPage = () => {
             >
               {isFuckingFold ? "Sub !" : " Stay in touch"}
             </button>
-            <div className="absolute group justify-center items-top top-14 w-5/6 flex">
+            <div className="absolute group justify-center items-top top-14 w-4/5 flex">
               <input
                 type="checkbox"
                 checked={checked}
@@ -577,6 +583,12 @@ const Home: NextPage = () => {
               <p className="truncate text-sm group-hover:whitespace-normal leading-5 text-neutral-500">
                 By submitting this form, you consent to depikt using your data
                 to respond to your contact request.
+                <Link
+                  href="/legals"
+                  className="text-tertiary-500 underline ml-1"
+                >
+                  See legals.
+                </Link>
               </p>
             </div>
           </form>

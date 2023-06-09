@@ -46,7 +46,7 @@ export default async function handler(
     return res.status(400).json(`You have no generations left`);
   }
 
-  let REPLICATE_KEY = process.env.REPLICATE_API_KEY;
+  let REPLICATE_KEY = process.env.NEXT_PUBLIC_REPLICATE_API_KEY;
 
   // Check to see if user is a paying customer
   if (user?._count?.purchases && user?._count?.purchases > 0) {

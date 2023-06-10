@@ -133,7 +133,7 @@ const Home: NextPage = () => {
         }}
       />
       <Header />
-      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center">
+      <main className="flex flex-col items-center justify-center flex-1 w-full px-4 text-center overflow-hidden">
         <div
           className="hero relative min-h-[calc(100vh-8rem)]"
           style={{

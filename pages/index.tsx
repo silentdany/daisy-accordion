@@ -214,7 +214,7 @@ const Home: NextPage = () => {
                 <div className="absolute group justify-center items-top top-14 w-4/5 flex">
                   <input
                     type="checkbox"
-                    checked={checked}
+                    defaultChecked={checked}
                     className="checkbox mt-[2px] checkbox-xs mr-1"
                     onClick={() => setChecked(!checked)}
                   />
@@ -576,7 +576,7 @@ const Home: NextPage = () => {
             <div className="absolute group justify-center items-top top-14 w-4/5 flex">
               <input
                 type="checkbox"
-                checked={checked}
+                defaultChecked={checked}
                 className="checkbox mt-[2px] checkbox-xs mr-1"
                 onClick={() => setChecked(!checked)}
               />
